@@ -38,6 +38,12 @@
     border-radius: 5px;
 }
 
+.form2 .label0 {
+    text-align:center;
+    position:relative;
+    top: 069%;
+}
+
 .container {
         position: relative;
         width: 50%;
