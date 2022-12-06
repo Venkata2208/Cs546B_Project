@@ -1,0 +1,132 @@
+
+.container {
+        position: relative;
+        width: 50%;
+      }
+
+.container .btn {
+        position:fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        background-color: rgb(1, 74, 16);
+        color: white;
+        font-size: 16px;
+        padding: 20px 48px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+.container .btn2 {
+        position:fixed;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        background-color: rgb(1, 74, 16);
+        color: white;
+        font-size: 16px;
+        padding: 20px 48px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+ 
+
+    * {
+        box-sizing: border-box;
+    }
+    body {
+        /*font-family: 'Montserrat', sans-serif;*/
+        line-height: 1.6;
+        margin: 0;
+        min-height: 100vh;
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    
+    
+    h2,
+    h3,
+    a {
+        color: #fdfeff;
+    }
+    
+    a {
+        text-decoration: none;
+    }
+    
+    
+    
+    .logo {
+        margin: 0;
+        font-size: 1.45em;
+    }
+    
+    .main-nav {
+        margin-top: 5px;
+    
+    }
+    .logo a,
+    .main-nav a {
+        padding: 10px 15px;
+        text-transform: uppercase;
+        text-align: center;
+        display: block;
+    }
+    
+    .main-nav a {
+        color: #f9fbfa;
+        font-size: .99em;
+    }
+    
+    .main-nav a:hover {
+        color: #04ab57;
+    }
+    
+    
+    
+    .header {
+        padding-top: .5em;
+        padding-bottom: .5em;
+        border: 1px solid rgb(1, 74, 16);
+        background-color: rgb(1, 74, 16);
+        -webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+    }
+    
+  
+    @media (min-width: 769px) {
+        .header,
+        .main-nav {
+            display: flex;
+        }
+        .header {
+            flex-direction: column;
+            align-items: center;
+        
+            width: 80%;
+            margin: 0 auto;
+            max-width: 1150px;
+        }
+        
+    
+    }
+    
+    @media (min-width: 1025px) {
+        .header {
+            flex-direction:row;
+            justify-content:space-evenly;
+        }
+    
+    }
+    
