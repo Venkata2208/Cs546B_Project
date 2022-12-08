@@ -99,7 +99,7 @@ async function login(req, res, next) {
 async function logout(req, res, next) {
   try {
     req.session.destroy();
-    return res.redirect("/users/login");
+    return res.redirect("/");
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
