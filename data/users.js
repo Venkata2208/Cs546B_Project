@@ -47,7 +47,7 @@ async function getUser(req, res, next) {
 
     if (!user) throw new ServerError(400, "User does not exists with given user id");
 
-    return sendResponse(req, res, next, 200, user);
+    return sendResponse(res, 200, user);
   } catch (error) {
     if (error instanceof ServerError) {
       next(error);
@@ -88,7 +88,7 @@ async function login(req, res, next) {
     };
 
     let page = "/home";
-    return sendResponse(req, res, next, 200, { url: page });
+    return sendResponse(res, 200, { url: page });
   } catch (error) {
     if (error instanceof ServerError) {
       next(error);
@@ -135,7 +135,7 @@ async function signUp(req, res, next) {
     });
 
     let page = "/users/login";
-    return sendResponse(req, res, next, 200, { url: page });
+    return sendResponse(res, 200, { url: page });
   } catch (error) {
     if (error instanceof ServerError) {
       next(error);

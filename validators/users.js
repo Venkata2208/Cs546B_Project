@@ -13,7 +13,7 @@ module.exports = {
 
 function validateUserSignUp(requestBody) {
   const schema = Joi.object().keys({
-    firstName: Joi.string().alphanum().min(1).max(20).required(),
+    firstName: Joi.string().alphanum().min(3).max(20).required(),
     lastName: Joi.string().alphanum().min(1).max(20).required(),
     username: Joi.string().alphanum().min(3).max(20).required(),
     password: Joi.string().required(),
