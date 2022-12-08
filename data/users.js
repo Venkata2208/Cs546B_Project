@@ -21,9 +21,9 @@ async function getLoginPage(req, res, next) {
     return res.render("users/login");
   } catch (error) {
     if (error instanceof ServerError) {
-      next(error);
+      return next(error);
     }
-    next(new ServerError(500, error.message));
+    return next(new ServerError(500, error.message));
   }
 }
 
@@ -32,9 +32,9 @@ async function getSignUpPage(req, res, next) {
     return res.render("users/signup");
   } catch (error) {
     if (error instanceof ServerError) {
-      next(error);
+      return next(error);
     }
-    next(new ServerError(500, error.message));
+    return next(new ServerError(500, error.message));
   }
 }
 
@@ -50,9 +50,9 @@ async function getUser(req, res, next) {
     return sendResponse(res, 200, user);
   } catch (error) {
     if (error instanceof ServerError) {
-      next(error);
+      return next(error);
     }
-    next(new ServerError(500, error.message));
+    return next(new ServerError(500, error.message));
   }
 }
 
@@ -87,25 +87,24 @@ async function login(req, res, next) {
       id: user.id,
     };
 
-    let page = "/home";
-    return sendResponse(res, 200, { url: page });
+    return sendResponse(res, 200, user);
   } catch (error) {
     if (error instanceof ServerError) {
-      next(error);
+      return next(error);
     }
-    next(new ServerError(500, error.message));
+    return next(new ServerError(500, error.message));
   }
 }
 
 async function logout(req, res, next) {
   try {
     req.session.destroy();
-    return res.redirect("/users/login");
+    return res.redirect("/");
   } catch (error) {
     if (error instanceof ServerError) {
-      next(error);
+      return next(error);
     }
-    next(new ServerError(500, error.message));
+    return next(new ServerError(500, error.message));
   }
 }
 
@@ -138,8 +137,8 @@ async function signUp(req, res, next) {
     return sendResponse(res, 200, { url: page });
   } catch (error) {
     if (error instanceof ServerError) {
-      next(error);
+      return next(error);
     }
-    next(new ServerError(500, error.message));
+    return next(new ServerError(500, error.message));
   }
 };
