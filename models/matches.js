@@ -7,6 +7,10 @@ const schema = new mongoose.Schema(
             min: 3,
             required: true,
         },
+        'userId': {
+            type: String,
+            required: true,
+        },
         'startTime': {
             type: Number,
             required: true,

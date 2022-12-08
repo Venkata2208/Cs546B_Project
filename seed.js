@@ -82,9 +82,15 @@ db.matches.insertOne({
     "name": "team2",
     "goals": {
       "total": 2,
-      "scorers": [
-        "player1name",
-        "player2name"
+      "details": [
+        {
+          "time": 2432423432,
+          "scorer": "player1name"
+        },
+        {
+          "time": 2432423432,
+          "scorer": "player2name"
+        }
       ]
     },
     "stats": {
