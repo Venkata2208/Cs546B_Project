@@ -3,6 +3,7 @@ const app = express();
 const routes = require('./routes');
 const init = require('./shared/init');
 const logging = require('./middlewares/logging');
+const { isAuthenticated } = require('./middlewares/auth');
 const errorHandler = require('./middlewares/error-handler');
 const static = express.static(__dirname + '/public');
 
@@ -10,6 +11,7 @@ app.use('/public', static);
 
 init(app);
 app.use(logging);
+app.use(isAuthenticated);
 routes(app);
 app.use(errorHandler);
 
