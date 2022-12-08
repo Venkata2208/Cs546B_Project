@@ -15,11 +15,12 @@ $(() => {
       },
     });
     req.fail((jqXHR, error) => {
+      console.log(jqXHR.responseJSON.data);
       serverError.append(`<p>${jqXHR.responseJSON.data}</p>`);
       serverError.show();
     });
     req.done((data) => {
-      window.location.href = '/';
+      window.location.href = "/";
     });
   });
 
