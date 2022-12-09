@@ -18,7 +18,7 @@ module.exports = {
 
 async function getLoginPage(req, res, next) {
   try {
-    return res.render("users/login");
+    return res.render("users/login", { isNotLoggedIn: true });
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
@@ -29,7 +29,7 @@ async function getLoginPage(req, res, next) {
 
 async function getSignUpPage(req, res, next) {
   try {
-    return res.render("users/signup");
+    return res.render("users/signup", { isNotLoggedIn: true });
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
@@ -133,8 +133,7 @@ async function signUp(req, res, next) {
       password: password,
     });
 
-    let page = "/users/login";
-    return sendResponse(res, 200, { url: page });
+    return sendResponse(res, 200, response);
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
