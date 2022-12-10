@@ -9,6 +9,7 @@ module.exports = {
     createMatch,
     getScheduleMatch,
     getMatches,
+    viewMatch,
 };
 
 
@@ -23,6 +24,16 @@ async function getCreateMatch(req, res, next) {
     }
 };
 
+async function viewMatch(req, res, next) {
+    try {
+        return res.render("matches/viewMatch");
+    } catch (error) {
+        if (error instanceof ServerError) {
+            return next(error);
+        }
+        return next(new ServerError(500, error.message));
+    }
+};
 
 async function getMatches(req, res, next) {
     try {
