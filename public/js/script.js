@@ -91,56 +91,18 @@ async function createMatch(event) {
   }
 };
 
-async function scoreboard(event) {
+async function viewmatch(event) {
   try {
     event.preventDefault();
-    const matchName = document.getElementById("match_name").value;
-
-    const team1 = {
-      name: document.getElementById("team1_name").value,
-      players: [
-        document.getElementById("team1_player1").value,
-        document.getElementById("team1_player2").value,
-        document.getElementById("team1_player3").value,
-        document.getElementById("team1_player4").value,
-        document.getElementById("team1_player5").value,
-        document.getElementById("team1_player6").value,
-        document.getElementById("team1_player7").value,
-        document.getElementById("team1_player8").value,
-        document.getElementById("team1_player9").value,
-        document.getElementById("team1_player10").value,
-        document.getElementById("team1_player11").value
-      ]
-    };
-
-    const team2 = {
-      name: document.getElementById("team2_name").value,
-      players: [
-        document.getElementById("team2_player1").value,
-        document.getElementById("team2_player2").value,
-        document.getElementById("team2_player3").value,
-        document.getElementById("team2_player4").value,
-        document.getElementById("team2_player5").value,
-        document.getElementById("team2_player6").value,
-        document.getElementById("team2_player7").value,
-        document.getElementById("team2_player8").value,
-        document.getElementById("team2_player9").value,
-        document.getElementById("team2_player10").value,
-        document.getElementById("team2_player11").value
-      ]
-    };
-    const duration = document.getElementById("duration").value;
+    const matchid = document.getElementById("match_id").value;
 
     let data = {
-      name: matchName,
-      duration: duration,
-      team1: team1,
-      team2: team2
+      id: matchid,
     };
 
     data = JSON.stringify(data);
 
-    let response = await fetch("/matches/", {
+    let response = await fetch("/matches/scoreboard", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
