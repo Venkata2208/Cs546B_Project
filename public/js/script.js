@@ -91,3 +91,27 @@ async function createMatch(event) {
   }
 };
 
+async function viewmatch(event) {
+  try {
+    event.preventDefault();
+    const matchid = document.getElementById("match_id").value;
+
+    let data = {
+      id: matchid,
+    };
+
+    data = JSON.stringify(data);
+
+    let response = await fetch("/matches/scoreboard", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: data,
+    });
+    response = await response.json();
+    window.location.href = '/';
+  } catch (error) {
+    console.log(error);
+  }
+};
