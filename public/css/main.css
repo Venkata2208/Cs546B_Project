@@ -68,5 +68,86 @@ p {
 }
 
 .a {
-  background-color: #333;
+  background-color: rgb(8, 168, 37);
+}
+
+
+.container {
+  position: relative;
+  width: 50%;
+}
+
+.container .btn1 {
+  position:fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: rgb(1, 74, 16);
+  color: white;
+  font-size: 16px;
+  padding: 20px 48px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.container .btn2 {
+  position:fixed;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: rgb(1, 74, 16);
+  color: white;
+  font-size: 16px;
+  padding: 20px 48px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.form1 .label{
+  position:fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: rgb(1, 74, 16);
+  color: white;
+  font-size: 16px;
+  padding: 20px 48px;
+  border: none;
+  border-radius: 5px;
+}
+
+.form1 .input1{
+  position:fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      font-size: 16px;
+      padding: 10px 18px;
+      border-radius: 5px;
+}
+
+.form1 .input2 {
+  position:fixed;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: rgb(1, 74, 16);
+  color: white;
+  font-size: 16px;
+  padding: 20px 48px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.table1 {
+  position: relative;
+  width: 50%;
 }

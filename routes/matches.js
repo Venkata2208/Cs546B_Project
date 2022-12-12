@@ -20,6 +20,8 @@ router.post("/scorecared", matches.postscorecard);
 //   res.redirect("/matches/history");
 // });
 
+router.get("/viewMatch", matches.viewMatch);
+
 // router.put("/", matches.updateMatch);
 // router.post("/comments", matches.postComment);
 // router.post("/highlights", matches.postHighlights);

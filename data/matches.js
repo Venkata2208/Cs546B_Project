@@ -13,11 +13,23 @@ module.exports = {
   getHighlights,
   postHighlights,
   postscorecard,
+  viewMatch,
 };
 
 async function getCreateMatch(req, res, next) {
   try {
     return res.render("matches/create");
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+
+async function viewMatch(req, res, next) {
+  try {
+    return res.render("matches/viewMatch");
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
