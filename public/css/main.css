@@ -146,3 +146,8 @@ p {
   cursor: pointer;
   border-radius: 5px;
 }
+
+.table1 {
+  position: relative;
+  width: 50%;
+}
