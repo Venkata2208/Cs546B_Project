@@ -12,6 +12,7 @@ module.exports = {
   getMatches,
   getHighlights,
   postHighlights,
+  postscorecard,
 };
 
 async function getCreateMatch(req, res, next) {
@@ -117,3 +118,44 @@ async function postHighlights(req, res, next) {
     return next(new ServerError(500, error.message));
   }
 }
+async function postscorecard(req, res, next) {
+  try {
+    const matchId = req.body.matchID;
+    const team1stats = req.body.team1stats;
+    const team2stats = req.body.team2stats;
+    //find match id and replace team1 object with key stats with new stats
+    const match1 = await Matches.findOneAndUpdate(
+      { _id: ObjectId(matchId) },
+      { $set: { team1: { stats: team1stats } } },
+      { new: true }
+    ).lean();
+    //find match id and replace team2 object with key stats with new stats
+    const match2 = await Matches.findOneAndUpdate(
+      { _id: ObjectId(matchId) },
+
+      { $set: { team2: { stats: team2stats } } },
+      { new: true }
+    ).lean();
+    //get match with id and return
+    const match = await Matches.findOne({ _id: ObjectId(matchId) }).lean();
+    return sendResponse(res, 200, match);
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+
+// async function postHighlights2(matchID, highlight) {
+//   const matchId = matchID;
+//   const highLight = highlight;
+//   //find match with id nd update highlights append new hightlight to array
+//   const match = await Matches.findOneAndUpdate(
+//     { _id: ObjectId(matchId) },
+//     { $push: { highlights: highLight } },
+//     { new: true }
+//   ).lean();
+
+//   return sendResponse(res, 200, match);
+// }
