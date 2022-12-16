@@ -1,104 +1,41 @@
 <main class="main1">
-        
 
-        <ul class="main-nav">
-            <a class="fields"></a>
-            <a class="fields"></a>
-            <a class="fields"></a>
-            <a class="fields"></a>
-            <a class="fields"></a>
-            <a class="fields"></a>
-            <a class="fields"></a>
-            
-            <a class="fields">team1_name</a>
-            <div class="count" value="0" id="team1_goals"></div>
-            <a class="fields"></a>
-            <a class="fields"></a>
-            <div class="count" value="0" id="team2_goals"></div>
-            <a class="fields">team2_name</a>
-            
-          </ul>
 
-      <ul class="main-nav">
-        <li><a href="matches/viewScoreboard/players" >Players</a></li>
-        <li><a href="matches/viewScoreboard/viewStats">Stats</a></li>
-        <li><a href="matches/viewScoreboard/viewCommentary">Commentary</a></li>
-        <li><a href="matches/viewScoreboard/viewHighlights">Highlights</a></li> 
-      </ul>
+    <ul class="main-nav">
+        <a class="fields"></a>
+        <a class="fields"></a>
+        <a class="fields"></a>
+        <a class="fields"></a>
+        <a class="fields"></a>
+        <a class="fields"></a>
+        <a class="fields"></a>
 
-      <table class="table1">
+        <a class="fields">team1_name</a>
+        <div class="count" value="0" id="team1_goals"></div>
+        <a class="fields"></a>
+        <a class="fields"></a>
+        <div class="count" value="0" id="team2_goals"></div>
+        <a class="fields">team2_name</a>
+
+    </ul>
+
+    <ul class="main-nav">
+        <li><a href="/matches/{{id}}/players">Players</a></li>
+        <li><a href="/matches/{{id}}/viewScoreboard/viewStats">Stats</a></li>
+        <li><a href="/matches/{{id}}/viewScoreboard/viewCommentary">Commentary</a></li>
+        <li><a href="/matches/{{id}}/highlights">Highlights</a></li>
+    </ul>
+
+    <table class="table1">
         <tr>
-          <th> Team 1</th>
-         
-          <th> Team 2</th>
-          
+            <th> {{team1Name}}</th>
+            <th>{{team2Name}}</th>
         </tr>
-        <tr>
-          <td id="t1p1">hari</td>
-         
-          <td id="t2p1">vivek</td>
-          
+        {{#each players}} <tr>
+            <td>{{this.team1}}</td>
+            <td>{{this.team2}}</td>
         </tr>
-        <tr>
-            <td id="t1p2">hari</td>
-            
-            <td id="t2p2">vivek</td>
-         
-        </tr>
-        <tr>
-            <td id="t1p3">hari</td>
-           
-            <td id="t2p3">vivek</td>
-         
-        </tr>
-        <tr>
-            <td id="t1p4">hari</td>
-           
-            <td id="t2p4">vivek</td>
-         
-        </tr>
-        <tr>
-            <td id="t1p5">hari</td>
-           
-            <td id="t2p5">vivek</td>
-          
-        </tr>
-        <tr>
-            <td id="t1p6">hari</td>
-         
-            <td id="t2p6">vivek</td>
-          
-        </tr>
-        <tr>
-            <td id="t1p7">hari</td>
-          
-            <td id="t2p7">vivek</td>
-         
-        </tr>
-        <tr>
-            <td id="t1p8">hari</td>
-          
-            <td id="t2p8">vivek</td>
-         
-        </tr>
-        <tr>
-            <td id="t1p9">hari</td>
-          
-            <td id="t2p9">vivek</td>
-         
-        </tr>
-        <tr>
-            <td id="t1p10">hari</td>
-          
-            <td id="t2p10">vivek</td>
-        
-        </tr>
-        <tr>
-            <td id="t1p11">hari</td>
-          
-            <td id="t2p11">vivek</td>
-          
-        </tr>
-      </table>
-      
+        {{/each}}
+    </table>
+
 </main>

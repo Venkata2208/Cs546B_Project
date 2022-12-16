@@ -101,3 +101,28 @@ async function viewmatch(event) {
     console.log(error);
   }
 }
+
+async function editHighlights(event) {
+  try {
+    event.preventDefault();
+    const highlight = document.getElementById("commentary-form-input").value;
+
+    let data = {
+      highlight: highlight,
+    };
+
+    data = JSON.stringify(data);
+
+    let response = await fetch("/postHighlights", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: data,
+    });
+    response = await response.json();
+    window.location.href = response.url;
+  } catch (error) {
+    console.log(error);
+  }
+}

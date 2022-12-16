@@ -16,6 +16,7 @@ module.exports = {
   viewMatch,
   postviewMatch,
   getviewMatch,
+  getPlayers,
 };
 
 async function getCreateMatch(req, res, next) {
@@ -32,6 +33,34 @@ async function getCreateMatch(req, res, next) {
 async function viewMatch(req, res, next) {
   try {
     return res.render("matches/viewMatch");
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+
+async function getPlayers(req, res, next) {
+  try {
+    const reqBody = req.body;
+    const match_id = req.params.id;
+    const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
+    const players = [];
+    for (let i = 0; i < 11; i++) {
+      players.push({
+        team1: match.team1.players[i],
+        team2: match.team2.players[i],
+      });
+    }
+    if (match) {
+      return res.render("matches/players", {
+        id: match_id,
+        team1Name: match.team1.name,
+        team2Name: match.team2.name,
+        players: players,
+      });
+    }
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
@@ -59,11 +88,13 @@ async function getviewMatch(req, res, next) {
   try {
     const reqBody = req.body;
     const match_id = req.params.id;
-    // const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
-    //render edit scoreboard page
-    return res.render("matches/editScoreboard/editScoreboard", {
-      data: match_id,
-    });
+    const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
+    if (match) {
+      return res.render("matches/editScoreboard/editScoreboard", {
+        id: match_id,
+      });
+    }
+    return res.render("matches/editScoreboard/error");
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
@@ -136,7 +167,7 @@ async function createMatch(req, res, next) {
 
 async function getHighlights(req, res, next) {
   try {
-    return res.render("matches/postmatch");
+    return res.render("matches/editScoreboard/editHighlights");
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);

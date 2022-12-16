@@ -9,6 +9,7 @@ router.post("/", matches.createMatch);
 router.get("/history", matches.getMatches);
 router.get("/highlights", matches.getHighlights);
 router.post("/highlights", matches.postHighlights);
+router.post("/getMatch/:id/highlights", matches.postHighlights);
 // router.get("/scorecared", matches.getScoreCared);
 router.post("/scorecared", matches.postscorecard);
 
@@ -21,6 +22,7 @@ router.post("/scorecared", matches.postscorecard);
 // });
 
 router.get("/viewMatch", matches.viewMatch);
+router.get("/:id/players", matches.getPlayers);
 router.post("/viewMatchWithId/:id", matches.postviewMatch);
 router.get("/getMatch/:id", matches.getviewMatch);
 
