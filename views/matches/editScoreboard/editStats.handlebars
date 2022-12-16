@@ -1,0 +1,85 @@
+<main class="main1">
+
+
+  <ul class="main-nav">
+    <a class="fields"></a>
+    <a class="fields"></a>
+    <a class="fields"></a>
+    <a class="fields"></a>
+    <a class="fields"></a>
+    <a class="fields"></a>
+    <a class="fields"></a>
+
+    <a class="fields">team1_name</a>
+    <div class="count" value="0" id="team1_goals"></div>
+    <a class="fields"></a>
+    <a class="fields"></a>
+    <div class="count" value="0" id="team2_goals"></div>
+    <a class="fields">team2_name</a>
+
+  </ul>
+
+  <ul class="main-nav">
+    <li><a href="/matches/{{id}}/players">Players</a></li>
+    <li><a href="/matches/{{id}}/editScoreboard/editStats">Stats</a></li>
+    <li><a href="/matches/{{id}}/editScoreboard/editCommentary">Commentary</a></li>
+    <li><a href="/matches/{{id}}/highlights">Highlights</a></li>
+  </ul>
+
+  <form method="POST" id="form" class="statsForm" onsubmit="editHighlights(event)">
+    <label id="label">
+
+      <div class="fields"></div>
+      <input class="class1" name="input" type="text" id="team1_name" value="team1_name" />
+      <input class="class1" name="input" type="text" id="team2_name" value="team2_name" />
+
+      <div class="fields">Goals</div>
+      <input class="class1" name="input" type="text" id="edit_team1_goals" value="0" />
+      <input class="class1" name="input" type="text" id="edit_team2_goals" value="0" />
+
+      <div></div>
+      <div class="fields">shots</div>
+      <input class="class1" name="input" type="text" id="edit_team1_shots" value="0" />
+      <input class="class1" name="input" type="text" id="edit_team2_shots" value="0" />
+
+      <div></div>
+      <div class="fields">shots on target</div>
+      <input class="class1" name="input" type="text" id="edit_team1_shotsontarget" value="0" />
+      <input class="class1" name="input" type="text" id="edit_team2_shotsontarget" value="0" />
+
+      <div></div>
+      <div class="fields">fouls</div>
+      <input class="class1" name="input" type="text" id="edit_team1_fouls" value="0" />
+      <input class="class1" name="input" type="text" id="edit_team2_fouls" value="0" />
+
+      <div></div>
+      <div class="fields">passes</div>
+      <input class="class1" name="input" type="text" id="edit_team1_passes" value="0" />
+      <input class="class1" name="input" type="text" id="edit_team2_passes" value="0" />
+
+      <div></div>
+      <div class="fields">yellow cards</div>
+      <input class="class1" name="input" type="text" id="edit_team1_yellowcards" value="0" />
+      <input class="class1" name="input" type="text" id="edit_team2_yellowcards" value="0" />
+
+      <div></div>
+      <div class="fields">red cards</div>
+      <input class="class1" name="input" type="text" id="edit_team1_redcards" value="0" />
+      <input class="class1" name="input" type="text" id="edit_team2_redcards" value="0" />
+
+      <div></div>
+      <div class="fields">offsides</div>
+      <input class="class1" name="input" type="text" id="edit_team1_offsides" value="0" />
+      <input class="class1" name="input" type="text" id="edit_team2_offsides" value="0" />
+
+      <div></div>
+      <div class="fields">corners</div>
+      <input class="class1" name="input" type="text" id="edit_team1_corners" value="0" />
+      <input class="class1" name="input" type="text" id="edit_team2_corners" value="0" />
+      </table>
+      <div></div>
+      <button class="btn3" type="submit">Submit </button>
+    </label>
+  </form>
+
+</main>

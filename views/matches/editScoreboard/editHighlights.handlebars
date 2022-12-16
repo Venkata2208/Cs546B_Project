@@ -1,0 +1,39 @@
+<main class="main1">
+
+
+  <ul class="main-nav">
+    <a class="fields"></a>
+    <a class="fields"></a>
+    <a class="fields"></a>
+    <a class="fields"></a>
+    <a class="fields"></a>
+    <a class="fields"></a>
+    <a class="fields"></a>
+
+    <a class="fields">team1_name</a>
+    <div class="count" value="0" id="team1_goals"></div>
+    <a class="fields"></a>
+    <a class="fields"></a>
+    <div class="count" value="0" id="team2_goals"></div>
+    <a class="fields">team2_name</a>
+
+  </ul>
+
+  <ul class="main-nav">
+    <a href="/persondetails/{{id}}">{{firstName}} {{lastName}}</a>
+    <li><a href="/matches/{{id}}/players">Players</a></li>
+    <li><a href="/matches/{{id}}/editScoreboard/editStats">Stats</a></li>
+    <li><a href="/matches/{{id}}/editScoreboard/editCommentary">Commentary</a></li>
+    <li><a href="/matches/{{id}}/highlights">Highlights</a></li>
+  </ul>
+
+  <form method="POST" id="highlightsForm" class="commentaryForm">
+    <label id="highlights-form-label" class="commentary-form-label">
+      <input class="commentary-form-input" name="input" type="text" id="commentary-form-input" size="60" />
+      <button class="commentarybtn" type="submit">Submit </button>
+    </label>
+  </form>
+
+  <ul id="editHighlightsList"></ul>
+
+</main>
