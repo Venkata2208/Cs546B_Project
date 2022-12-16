@@ -9,7 +9,7 @@ async function signUpUI(event) {
       firstName: signUpFirstName,
       lastName: signUpLastName,
       username: signUpUsername,
-      password: signUpPassword
+      password: signUpPassword,
     };
 
     data = JSON.stringify(data);
@@ -22,11 +22,11 @@ async function signUpUI(event) {
       body: data,
     });
     response = await response.json();
-    window.location.href = '/';
+    window.location.href = "/";
   } catch (error) {
     console.log(error);
   }
-};
+}
 
 async function createMatch(event) {
   try {
@@ -46,8 +46,8 @@ async function createMatch(event) {
         document.getElementById("team1_player8").value,
         document.getElementById("team1_player9").value,
         document.getElementById("team1_player10").value,
-        document.getElementById("team1_player11").value
-      ]
+        document.getElementById("team1_player11").value,
+      ],
     };
 
     const team2 = {
@@ -63,8 +63,8 @@ async function createMatch(event) {
         document.getElementById("team2_player8").value,
         document.getElementById("team2_player9").value,
         document.getElementById("team2_player10").value,
-        document.getElementById("team2_player11").value
-      ]
+        document.getElementById("team2_player11").value,
+      ],
     };
     const duration = document.getElementById("duration").value;
 
@@ -72,7 +72,7 @@ async function createMatch(event) {
       name: matchName,
       duration: duration,
       team1: team1,
-      team2: team2
+      team2: team2,
     };
 
     data = JSON.stringify(data);
@@ -85,33 +85,19 @@ async function createMatch(event) {
       body: data,
     });
     response = await response.json();
-    window.location.href = '/';
+    window.location.href = response.url;
   } catch (error) {
     console.log(error);
   }
-};
+}
 
 async function viewmatch(event) {
   try {
     event.preventDefault();
     const matchid = document.getElementById("match_id").value;
 
-    let data = {
-      id: matchid,
-    };
-
-    data = JSON.stringify(data);
-
-    let response = await fetch("/matches/scoreboard", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: data,
-    });
-    response = await response.json();
-    window.location.href = '/';
+    window.location.href = `/matches/getMatch/${matchid}`;
   } catch (error) {
     console.log(error);
   }
-};
+}
