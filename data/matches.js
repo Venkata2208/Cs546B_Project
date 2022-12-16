@@ -17,6 +17,7 @@ module.exports = {
   postviewMatch,
   getviewMatch,
   getPlayers,
+  getStats,
 };
 
 async function getCreateMatch(req, res, next) {
@@ -217,6 +218,18 @@ async function postscorecard(req, res, next) {
     //get match with id and return
     const match = await Matches.findOne({ _id: ObjectId(matchId) }).lean();
     return sendResponse(res, 200, match);
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+async function getStats(req, res, next) {
+  try {
+    return res.render("matches/editScoreboard/editStats", {
+      id: req.params.id,
+    });
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
