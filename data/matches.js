@@ -167,7 +167,9 @@ async function createMatch(req, res, next) {
 
 async function getHighlights(req, res, next) {
   try {
-    return res.render("matches/editScoreboard/editHighlights");
+    return res.render("matches/editScoreboard/editHighlights", {
+      id: req.params.id,
+    });
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
@@ -178,15 +180,16 @@ async function getHighlights(req, res, next) {
 async function postHighlights(req, res, next) {
   try {
     //update highlights array of match
-    const matchId = req.body.matchID;
 
-    const match = await Matches.findOneAndUpdate(
+    const matchId = req.params.id;
+    const highlight = req.body.highlight;
+
+    const match = await Matches.updateOne(
       { _id: ObjectId(matchId) },
-      { $push: { highlights: req.body.higlight } },
-      { new: true }
-    ).lean();
+      { $push: { highlights: highlight } }
+    );
 
-    return sendResponse(res, 200, match);
+    return res.send({ url: `/matches/getMatch/${matchId}` });
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);

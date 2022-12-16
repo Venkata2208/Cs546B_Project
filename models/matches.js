@@ -76,7 +76,8 @@ const schema = new mongoose.Schema(
       default: [],
     },
     highlights: {
-      type: String,
+      type: Array,
+      default: [],
     },
     team1: teamSchema,
     team2: teamSchema,

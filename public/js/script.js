@@ -119,7 +119,7 @@ async function createMatch(event) {
       body: data,
     });
     response = await response.json();
-    window.location.href = '/matches/history';
+    window.location.href = "/matches/history";
   } catch (error) {
     console.log(error);
   }
@@ -139,15 +139,18 @@ async function viewmatch(event) {
 async function editHighlights(event) {
   try {
     event.preventDefault();
+    const id = document.getElementById("matchId").value;
+    console.log(id);
     const highlight = document.getElementById("commentary-form-input").value;
-
+    // let id = url.split("/")[4];
     let data = {
+      id: id,
       highlight: highlight,
     };
 
     data = JSON.stringify(data);
 
-    let response = await fetch("/postHighlights", {
+    let response = await fetch(`/matches/${id}/highlights`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
