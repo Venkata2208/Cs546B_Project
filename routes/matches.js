@@ -21,6 +21,8 @@ router.post("/scorecared", matches.postscorecard);
 // });
 
 router.get("/viewMatch", matches.viewMatch);
+router.post("/viewMatchWithId/:id", matches.postviewMatch);
+router.get("/getMatch/:id", matches.getviewMatch);
 
 // router.put("/", matches.updateMatch);
 // router.post("/comments", matches.postComment);
