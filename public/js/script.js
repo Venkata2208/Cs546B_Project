@@ -1,3 +1,5 @@
+const { number } = require("joi");
+
 async function signUpUI(event) {
   try {
     event.preventDefault();
@@ -9,7 +11,7 @@ async function signUpUI(event) {
       firstName: signUpFirstName,
       lastName: signUpLastName,
       username: signUpUsername,
-      password: signUpPassword
+      password: signUpPassword,
     };
 
     data = JSON.stringify(data);
@@ -22,17 +24,51 @@ async function signUpUI(event) {
       body: data,
     });
     response = await response.json();
-    window.location.href = '/';
+    window.location.href = "/";
   } catch (error) {
     console.log(error);
   }
-};
+}
 
 async function createMatch(event) {
   try {
     event.preventDefault();
     const matchName = document.getElementById("match_name").value;
-
+    if (checkName(matchName)) {
+      throw "Match name should not be empty and it has to be alphanumeric(can include spaces) with strictly more than 2 characters";
+    }
+    if (
+      checkName(document.getElementById("team1_name").value) ||
+      checkName(document.getElementById("team2_name").value)
+    ) {
+      throw "Team name should not be empty and it has to be alphanumeric(can include spaces) with strictly more than 2 characters";
+    }
+    if (
+      checkName(document.getElementById("team1_player1").value) ||
+      checkName(document.getElementById("team1_player2").value) ||
+      checkName(document.getElementById("team1_player3").value) ||
+      checkName(document.getElementById("team1_player4").value) ||
+      checkName(document.getElementById("team1_player5").value) ||
+      checkName(document.getElementById("team1_player6").value) ||
+      checkName(document.getElementById("team1_player7").value) ||
+      checkName(document.getElementById("team1_player8").value) ||
+      checkName(document.getElementById("team1_player9").value) ||
+      checkName(document.getElementById("team1_player10").value) ||
+      checkName(document.getElementById("team1_player11").value) ||
+      checkName(document.getElementById("team2_player1").value) ||
+      checkName(document.getElementById("team2_player2").value) ||
+      checkName(document.getElementById("team2_player3").value) ||
+      checkName(document.getElementById("team2_player4").value) ||
+      checkName(document.getElementById("team2_player5").value) ||
+      checkName(document.getElementById("team2_player6").value) ||
+      checkName(document.getElementById("team2_player7").value) ||
+      checkName(document.getElementById("team2_player8").value) ||
+      checkName(document.getElementById("team2_player9").value) ||
+      checkName(document.getElementById("team2_player10").value) ||
+      checkName(document.getElementById("team2_player11").value)
+    ) {
+      throw "Player/s name should not be empty and it has to be alphanumeric(can include spaces) with strictly more than 2 characters";
+    }
     const team1 = {
       name: document.getElementById("team1_name").value,
       players: [
@@ -46,8 +82,8 @@ async function createMatch(event) {
         document.getElementById("team1_player8").value,
         document.getElementById("team1_player9").value,
         document.getElementById("team1_player10").value,
-        document.getElementById("team1_player11").value
-      ]
+        document.getElementById("team1_player11").value,
+      ],
     };
 
     const team2 = {
@@ -63,8 +99,8 @@ async function createMatch(event) {
         document.getElementById("team2_player8").value,
         document.getElementById("team2_player9").value,
         document.getElementById("team2_player10").value,
-        document.getElementById("team2_player11").value
-      ]
+        document.getElementById("team2_player11").value,
+      ],
     };
     const duration = document.getElementById("duration").value;
 
@@ -72,7 +108,7 @@ async function createMatch(event) {
       name: matchName,
       duration: duration,
       team1: team1,
-      team2: team2
+      team2: team2,
     };
 
     data = JSON.stringify(data);
@@ -85,24 +121,35 @@ async function createMatch(event) {
       body: data,
     });
     response = await response.json();
-    window.location.href = '/';
+    window.location.href = response.url;
   } catch (error) {
     console.log(error);
   }
-};
+}
 
 async function viewmatch(event) {
   try {
     event.preventDefault();
     const matchid = document.getElementById("match_id").value;
 
+    window.location.href = `/matches/getMatch/${matchid}`;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function editHighlights(event) {
+  try {
+    event.preventDefault();
+    const highlight = document.getElementById("commentary-form-input").value;
+
     let data = {
-      id: matchid,
+      highlight: highlight,
     };
 
     data = JSON.stringify(data);
 
-    let response = await fetch("/matches/scoreboard", {
+    let response = await fetch("/postHighlights", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -110,8 +157,34 @@ async function viewmatch(event) {
       body: data,
     });
     response = await response.json();
-    window.location.href = '/';
+    window.location.href = response.url;
   } catch (error) {
     console.log(error);
   }
-};
+}
+function checkNum(num) {
+  num = num.trim();
+  if (typeof Number(num) === number && Number(num) != NaN) return false;
+  else return true;
+}
+
+function checkName(str) {
+  str = str.trim();
+  let n = str.length;
+  if (n < 3) return true;
+  for (let i = 0; i < n; i++) {
+    let c = str.charCodeAt(i);
+    if (c < 48 && c != 20) return true;
+    else if (c > 57 && c < 64) return true;
+    else if (c > 90 && c < 97) return true;
+    else if (c > 122) return true;
+    throw "Name should be alphanumeric(including spaces) with strictly more than 2 characters";
+  }
+  return false;
+}
+
+function checkCom(str) {
+  str = str.trim();
+  if (str.length < 5) return true;
+  else return false;
+}
