@@ -14,6 +14,8 @@ module.exports = {
   postHighlights,
   postscorecard,
   viewMatch,
+  postviewMatch,
+  getviewMatch,
 };
 
 async function getCreateMatch(req, res, next) {
@@ -38,6 +40,37 @@ async function viewMatch(req, res, next) {
   }
 }
 
+async function postviewMatch(req, res, next) {
+  try {
+    const reqBody = req.body;
+    const match_id = req.params.id;
+    // const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
+    //render edit scoreboard page
+    return res.send({ url: `/matches/viewMatchWithId/${match_id}` });
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+
+async function getviewMatch(req, res, next) {
+  try {
+    const reqBody = req.body;
+    const match_id = req.params.id;
+    // const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
+    //render edit scoreboard page
+    return res.render("matches/editScoreboard/editScoreboard", {
+      data: match_id,
+    });
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
 async function getMatches(req, res, next) {
   try {
     const matches = await Matches.find({ userId: req.session.user.id }).lean();
