@@ -1,5 +1,3 @@
-const { number } = require("joi");
-
 async function signUpUI(event) {
   try {
     event.preventDefault();
@@ -34,38 +32,38 @@ async function createMatch(event) {
   try {
     event.preventDefault();
     const matchName = document.getElementById("match_name").value;
-    if (checkName(matchName)) {
+    if (!checkName(matchName)) {
       throw "Match name should not be empty and it has to be alphanumeric(can include spaces) with strictly more than 2 characters";
     }
     if (
-      checkName(document.getElementById("team1_name").value) ||
-      checkName(document.getElementById("team2_name").value)
+      !checkName(document.getElementById("team1_name").value) ||
+      !checkName(document.getElementById("team2_name").value)
     ) {
       throw "Team name should not be empty and it has to be alphanumeric(can include spaces) with strictly more than 2 characters";
     }
     if (
-      checkName(document.getElementById("team1_player1").value) ||
-      checkName(document.getElementById("team1_player2").value) ||
-      checkName(document.getElementById("team1_player3").value) ||
-      checkName(document.getElementById("team1_player4").value) ||
-      checkName(document.getElementById("team1_player5").value) ||
-      checkName(document.getElementById("team1_player6").value) ||
-      checkName(document.getElementById("team1_player7").value) ||
-      checkName(document.getElementById("team1_player8").value) ||
-      checkName(document.getElementById("team1_player9").value) ||
-      checkName(document.getElementById("team1_player10").value) ||
-      checkName(document.getElementById("team1_player11").value) ||
-      checkName(document.getElementById("team2_player1").value) ||
-      checkName(document.getElementById("team2_player2").value) ||
-      checkName(document.getElementById("team2_player3").value) ||
-      checkName(document.getElementById("team2_player4").value) ||
-      checkName(document.getElementById("team2_player5").value) ||
-      checkName(document.getElementById("team2_player6").value) ||
-      checkName(document.getElementById("team2_player7").value) ||
-      checkName(document.getElementById("team2_player8").value) ||
-      checkName(document.getElementById("team2_player9").value) ||
-      checkName(document.getElementById("team2_player10").value) ||
-      checkName(document.getElementById("team2_player11").value)
+      !checkName(document.getElementById("team1_player1").value) ||
+      !checkName(document.getElementById("team1_player2").value) ||
+      !checkName(document.getElementById("team1_player3").value) ||
+      !checkName(document.getElementById("team1_player4").value) ||
+      !checkName(document.getElementById("team1_player5").value) ||
+      !checkName(document.getElementById("team1_player6").value) ||
+      !checkName(document.getElementById("team1_player7").value) ||
+      !checkName(document.getElementById("team1_player8").value) ||
+      !checkName(document.getElementById("team1_player9").value) ||
+      !checkName(document.getElementById("team1_player10").value) ||
+      !checkName(document.getElementById("team1_player11").value) ||
+      !checkName(document.getElementById("team2_player1").value) ||
+      !checkName(document.getElementById("team2_player2").value) ||
+      !checkName(document.getElementById("team2_player3").value) ||
+      !checkName(document.getElementById("team2_player4").value) ||
+      !checkName(document.getElementById("team2_player5").value) ||
+      !checkName(document.getElementById("team2_player6").value) ||
+      !checkName(document.getElementById("team2_player7").value) ||
+      !checkName(document.getElementById("team2_player8").value) ||
+      !checkName(document.getElementById("team2_player9").value) ||
+      !checkName(document.getElementById("team2_player10").value) ||
+      !checkName(document.getElementById("team2_player11").value)
     ) {
       throw "Player/s name should not be empty and it has to be alphanumeric(can include spaces) with strictly more than 2 characters";
     }
@@ -121,7 +119,7 @@ async function createMatch(event) {
       body: data,
     });
     response = await response.json();
-    window.location.href = response.url;
+    window.location.href = '/matches/history';
   } catch (error) {
     console.log(error);
   }
@@ -171,16 +169,9 @@ function checkNum(num) {
 function checkName(str) {
   str = str.trim();
   let n = str.length;
-  if (n < 3) return true;
-  for (let i = 0; i < n; i++) {
-    let c = str.charCodeAt(i);
-    if (c < 48 && c != 20) return true;
-    else if (c > 57 && c < 64) return true;
-    else if (c > 90 && c < 97) return true;
-    else if (c > 122) return true;
-    throw "Name should be alphanumeric(including spaces) with strictly more than 2 characters";
-  }
-  return false;
+  if (n < 3) return false;
+  const nameRegex = new RegExp("^[a-zA-Z0-9_]*$");
+  return nameRegex.test(str);
 }
 
 function checkCom(str) {
