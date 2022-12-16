@@ -4,10 +4,15 @@
 }
 
 body {
-  background: black;
+  /* background: black; */
   font-family: Georgia, Cambria, "Times New Roman", Times, serif;
   font-size: 15pt;
-  background-image: url("https://wallpaper.dog/large/10885126.jpg");
+  background: url("https://wallpaper.dog/large/10885126.jpg") no-repeat center
+    center fixed black;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 label {
@@ -71,14 +76,13 @@ p {
   background-color: rgb(8, 168, 37);
 }
 
-
 .container {
   position: relative;
   width: 50%;
 }
 
 .container .btn1 {
-  position:fixed;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -93,7 +97,7 @@ p {
 }
 
 .container .btn2 {
-  position:fixed;
+  position: fixed;
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -107,8 +111,8 @@ p {
   border-radius: 5px;
 }
 
-.form1 .label{
-  position:fixed;
+.form1 .label {
+  position: fixed;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -121,19 +125,19 @@ p {
   border-radius: 5px;
 }
 
-.form1 .input1{
-  position:fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-      font-size: 16px;
-      padding: 10px 18px;
-      border-radius: 5px;
+.form1 .input1 {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  font-size: 16px;
+  padding: 10px 18px;
+  border-radius: 5px;
 }
 
 .form1 .input2 {
-  position:fixed;
+  position: fixed;
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -147,7 +151,6 @@ p {
   border-radius: 5px;
 }
 
-
 .commentary-form-label {
   display: block;
   font-weight: 500;
@@ -155,7 +158,6 @@ p {
   color: #07074d;
   margin-bottom: 12px;
 }
-
 
 .commentary-form-input {
   width: 100%;
@@ -186,48 +188,44 @@ p {
   cursor: pointer;
 }
 
-
-.count{
-position: relative;
-margin: 0px ;
-padding: 4px 6px;
-font-size: 40px;
-line-height: 30px;
-font-weight: 60;
--webkit-font-smoothing: antialiased;
-width:5%;
-display: inline-block;
-background: rgba(255,255,255,0.1); 
+.count {
+  position: relative;
+  margin: 0px;
+  padding: 4px 6px;
+  font-size: 40px;
+  line-height: 30px;
+  font-weight: 60;
+  -webkit-font-smoothing: antialiased;
+  width: 5%;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.table1, th, td {
-  
+.table1,
+th,
+td {
   text-align: center;
   background-color: rgb(91, 187, 107);
-  
 }
-.table1{
+.table1 {
   width: 100%;
 }
 
-.statsForm{
-    
+.statsForm {
   background-color: rgb(91, 187, 107);
 
   padding: 40px 208px;
 }
-.statsForm .class1{
+.statsForm .class1 {
   text-align: center;
- 
 }
-.statsForm .fields{
+.statsForm .fields {
   text-align: center;
   height: 20px;
   width: 30%;
-  display:inline-block;
-  
+  display: inline-block;
 }
-.statsForm .btn3{
+.statsForm .btn3 {
   text-align: center;
   padding: 5px 40px;
   width: 30%;
@@ -235,7 +233,6 @@ background: rgba(255,255,255,0.1);
 
 .main-nav {
   margin-top: 5px;
-
 }
 .logo a,
 .main-nav a {
@@ -247,82 +244,76 @@ background: rgba(255,255,255,0.1);
 
 .main-nav a {
   color: #f9fbfa;
-  font-size: .99em;
+  font-size: 0.99em;
 }
 
 .main-nav a:hover {
   color: #04ab57;
 }
 
-
-
 .header {
-  padding-top: .5em;
-  padding-bottom: .5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
   border: 1px solid rgb(1, 74, 16);
   background-color: rgb(1, 74, 16);
-  -webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.75);
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
 .main1 {
-  position:sticky;
+  position: sticky;
   top: 20%;
-  
+
   align-content: center;
-  padding-top: .5em;
-  padding-bottom: .5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
   border: 1px solid rgb(1, 74, 16);
   background-color: rgb(22, 124, 22);
-  -webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.75);
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-.main1 a{
+.main1 a {
   text-decoration: underline;
   color: rgb(223, 220, 220);
-  
 }
 
 @media (min-width: 769px) {
   .header,
   .main-nav {
-      display: flex;
+    display: flex;
   }
   .header {
-      flex-direction: column;
-      align-items: center;
-  
-      width: 80%;
-      margin: 0 auto;
-      max-width: 1150px;
+    flex-direction: column;
+    align-items: center;
+
+    width: 80%;
+    margin: 0 auto;
+    max-width: 1150px;
   }
   .main1 {
-      flex-direction: column;
-      align-items: center;
-  
-      width: 60%;
-      margin: 0 auto;
-      max-width: 1150px;
-  }
-  
+    flex-direction: column;
+    align-items: center;
 
+    width: 60%;
+    margin: 0 auto;
+    max-width: 1150px;
+  }
 }
 
 @media (min-width: 1025px) {
   .header {
-      flex-direction:row;
-      justify-content:space-evenly;
+    flex-direction: row;
+    justify-content: space-evenly;
   }
   .main1 {
-      flex-direction:row;
-      justify-content:space-evenly;
+    flex-direction: row;
+    justify-content: space-evenly;
   }
-
 }
