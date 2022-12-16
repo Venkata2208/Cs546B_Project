@@ -27,8 +27,10 @@
     <li><a href="/matches/{{id}}/highlights">Highlights</a></li>
   </ul>
 
-  <form method="POST" id="highlightsForm" class="commentaryForm">
+  <form id="highlightsForm" class="commentaryForm" onsubmit="editHighlights(event)">
+    <option id="matchId" hidden="true">{{id}}</option>
     <label id="highlights-form-label" class="commentary-form-label">
+      {{!-- <input value="" /> --}}
       <input class="commentary-form-input" name="input" type="text" id="commentary-form-input" size="60" />
       <button class="commentarybtn" type="submit">Submit </button>
     </label>

@@ -7,10 +7,8 @@ router.get("/createMatch", matches.getCreateMatch);
 router.get("/scheduleMatch", matches.getScheduleMatch);
 router.post("/", matches.createMatch);
 router.get("/history", matches.getMatches);
-router.get("/highlights", matches.getHighlights);
-router.post("/highlights", matches.postHighlights);
-router.post("/getMatch/:id/highlights", matches.postHighlights);
-// router.get("/scorecared", matches.getScoreCared);
+router.get("/:id/highlights", matches.getHighlights);
+router.post("/:id/highlights", matches.postHighlights);
 router.post("/scorecared", matches.postscorecard);
 
 // router.post("/highlights", matches.postHighlights);
