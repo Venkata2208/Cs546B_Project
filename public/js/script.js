@@ -132,7 +132,8 @@ async function viewmatch(event) {
 
     window.location.href = `/matches/getMatch/${matchid}`;
   } catch (error) {
-    console.log(error);
+    console.log(JSON.stringify(error));
+    alert(error.data.message);
   }
 }
 

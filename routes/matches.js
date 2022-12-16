@@ -1,5 +1,5 @@
 const matches = require("../data/matches");
-// const { isAuthenticated, isAuthorized } = require('../middlewares/auth');
+const { isAuthorized } = require('../middlewares/auth');
 
 const router = require("express").Router();
 
@@ -24,7 +24,7 @@ router.post("/scorecared", matches.postscorecard);
 router.get("/viewMatch", matches.viewMatch);
 router.get("/:id/players", matches.getPlayers);
 router.post("/viewMatchWithId/:id", matches.postviewMatch);
-router.get("/getMatch/:id", matches.getviewMatch);
+router.get("/getMatch/:id", isAuthorized, matches.getviewMatch);
 
 // router.put("/", matches.updateMatch);
 // router.post("/comments", matches.postComment);

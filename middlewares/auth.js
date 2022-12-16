@@ -22,17 +22,28 @@ async function isAuthenticated(req, res, next) {
 }
 
 async function isAuthorized(req, res, next) {
-    if (req.session.user) {
-        const id = req.params.id;
+    try {
+        if (req.session.user) {
+            const id = req.params.id;
 
-        if (!isObjectId(id)) return next(new ServerError(400, 'Invalid match id'));
+            if (!isObjectId(id)) throw new ServerError(400, 'Invalid match id');
 
-        const match = await Matches.findOne({ _id: id }, { userId: 1 });
+            const match = await Matches.findOne({ _id: id }, { userId: 1 });
 
-        if (req.session.user.id == match.userId) return next();
+            if (!match) {
+                throw new ServerError(400, 'Match does not exist with given Id');
+            }
 
-        return next(new ServerError(403, 'User is not authorized to do this operation'));
-    } else {
-        return next(new ServerError(403, 'User not logged in'));
+            if (req.session.user.id == match.userId) {
+                req.session.user.currentMatch = true;
+            }
+
+            return next();
+        } else {
+            throw new ServerError(403, 'User not logged in');
+        }
+    } catch (error) {
+        if (error.status == 403) throw error;
+        return res.render("matches/error", { data: error.message });
     }
 }

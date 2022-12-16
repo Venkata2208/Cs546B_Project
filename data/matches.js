@@ -94,7 +94,6 @@ async function getviewMatch(req, res, next) {
         id: match_id,
       });
     }
-    return res.render("matches/editScoreboard/error");
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
