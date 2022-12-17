@@ -19,6 +19,8 @@ module.exports = {
   getPlayers,
   getStats,
   postStats,
+  getCommentary,
+  postCommentary,
 };
 
 async function getCreateMatch(req, res, next) {
@@ -191,6 +193,54 @@ async function getHighlights(req, res, next) {
     return next(new ServerError(500, error.message));
   }
 }
+
+async function getCommentary(req, res, next) {
+  try {
+    const match_id = req.params.id;
+    const loggedUserId = req.session.user.id;
+    const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
+    const commentary = match.commentary;
+
+    if (match.userId == loggedUserId) {
+      return res.render("matches/editScoreboard/editCommentary", {
+        id: req.params.id,
+        commentary: commentary,
+      });
+    } else {
+      return res.render("matches/viewScoreboard/viewCommentary", {
+        id: req.params.id,
+        commentary: commentary,
+      });
+    }
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+
+async function postCommentary(req, res, next) {
+  try {
+    //update commentary array of match
+
+    const matchId = req.params.id;
+    const commentary = req.body.commentary;
+
+    const match = await Matches.updateOne(
+      { _id: ObjectId(matchId) },
+      { $push: { commentary: commentary } }
+    );
+
+    return res.send({ url: `/matches/${matchId}/commentary` });
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+
 async function postHighlights(req, res, next) {
   try {
     //update highlights array of match

@@ -181,7 +181,7 @@ async function editHighlights(event) {
     event.preventDefault();
     const id = document.getElementById("matchId").value;
     console.log(id);
-    const highlight = document.getElementById("commentary-form-input").value;
+    const highlight = document.getElementById("highlights-form-input").value;
     //check if highlight is empty
     if (highlight.trim() === "") {
       throw "Highlight cannot be empty";
@@ -210,6 +210,41 @@ async function editHighlights(event) {
     document.getElementById("error").style.display = "block";
   }
 }
+
+async function editcommentary(event) {
+  try {
+    event.preventDefault();
+    const id = document.getElementById("matchId").value;
+    const commentary = document.getElementById("commentary-form-input").value;
+    //check if commentary is empty
+    if (commentary.trim() === "") {
+      throw "Commentary cannot be empty";
+    }
+
+    let data = {
+      id: id,
+      commentary: commentary,
+    };
+
+    data = JSON.stringify(data);
+
+    let response = await fetch(`/matches/${id}/commentary`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: data,
+    });
+    response = await response.json();
+    window.location.href = response.url;
+  } catch (error) {
+    console.log(error);
+
+    document.getElementById("error").innerHTML = error;
+    document.getElementById("error").style.display = "block";
+  }
+}
+
 function checkNum(num) {
   num = num.trim();
   if (typeof Number(num) === number && Number(num) != NaN) return false;

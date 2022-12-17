@@ -72,7 +72,7 @@ const schema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    comments: {
+    commentary: {
       type: Array,
       default: [],
     },

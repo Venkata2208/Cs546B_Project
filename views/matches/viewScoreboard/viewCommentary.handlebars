@@ -26,6 +26,11 @@
     <li><a href="/matches/{{id}}/highlights">Highlights</a></li>
   </ul>
 
-  <ul id="viewCommentaryList"></ul>
+
+  <ul id="viewCommentaryList">
+    {{#each highlights}}
+    <li>{{this}}</li>
+    {{/each}}
+  </ul>
 
 </main>
