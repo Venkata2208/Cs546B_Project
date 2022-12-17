@@ -203,7 +203,7 @@ async function postHighlights(req, res, next) {
       { $push: { highlights: highlight } }
     );
 
-    return res.send({ url: `/matches/getMatch/${matchId}` });
+    return res.send({ url: `/matches/${matchId}/highlights` });
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
