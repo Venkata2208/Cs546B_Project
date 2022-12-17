@@ -205,7 +205,9 @@ async function editHighlights(event) {
     window.location.href = response.url;
   } catch (error) {
     console.log(error);
-    alert(error);
+
+    document.getElementById("error").innerHTML = error;
+    document.getElementById("error").style.display = "block";
   }
 }
 function checkNum(num) {
