@@ -9,6 +9,9 @@ router.post("/", matches.createMatch);
 router.get("/history", matches.getMatches);
 router.get("/:id/highlights", matches.getHighlights);
 router.post("/:id/highlights", matches.postHighlights);
+router.get("/:id/commentary", matches.getCommentary);
+router.post("/:id/commentary", matches.postCommentary);
+
 router.post("/scorecared", matches.postscorecard);
 router.get("/:id/stats", matches.getStats);
 router.post("/:id/stats", matches.postStats);

@@ -21,18 +21,28 @@
 
   <ul class="main-nav">
     <li><a href="/matches/{{id}}/players">Players</a></li>
-    <li><a href="/matches/editScoreboard/editStats">Stats</a></li>
-    <li><a href="/matches/editScoreboard/editCommentary">Commentary</a></li>
+    <li><a href="/matches/{{id}}/stats">Stats</a></li>
+    <li><a href="/matches/{{id}}/commentary">Commentary</a></li>
     <li><a href="/matches/{{id}}/highlights">Highlights</a></li>
   </ul>
 
-  <form method="POST" id="commentaryForm" class="commentaryForm">
+
+
+  <form id="commentary" class="commentary" onsubmit="editcommentary(event)">
+    <option id="matchId" hidden="true">{{id}}</option>
     <label id="commentary-form-label" class="commentary-form-label">
+      {{!-- <input value="" /> --}}
       <input class="commentary-form-input" name="input" type="text" id="commentary-form-input" size="60" />
       <button class="commentarybtn" type="submit">Submit </button>
     </label>
+
+    <div id="error" class="error"></div>
   </form>
 
-  <ul id="editCommentaryList"></ul>
+  <ul id="editCommentaryList">
+    {{#each highlights}}
+    <li>{{this}}</li>
+    {{/each}}
+  </ul>
 
 </main>
