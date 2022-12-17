@@ -6,7 +6,6 @@ async function signUpUI(event) {
     const signUpUsername = document.getElementById("signup-username").value;
     const signUpPassword = document.getElementById("signup-password").value;
 
-    // Check if the user has entered all the fields
     if (
       signUpFirstName === "" ||
       signUpLastName === "" ||
@@ -15,7 +14,7 @@ async function signUpUI(event) {
     ) {
       throw "Please enter all the fields";
     }
-    //check inputs doen't contain only spaces
+
     if (
       signUpFirstName.trim() === "" ||
       signUpLastName.trim() === "" ||
@@ -128,6 +127,13 @@ async function createMatch(event) {
       ],
     };
     const duration = document.getElementById("duration").value;
+    if (!duration) {
+      throw "Duration should not be empty";
+    }
+
+    if (isNaN(duration)) {
+      throw "Duration should be a number";
+    }
 
     let data = {
       name: matchName,
@@ -149,6 +155,8 @@ async function createMatch(event) {
     window.location.href = "/matches/history";
   } catch (error) {
     console.log(error);
+    document.getElementById("error").innerHTML = error;
+    document.getElementById("error").style.display = "block";
   }
 }
 
@@ -156,11 +164,15 @@ async function viewmatch(event) {
   try {
     event.preventDefault();
     const matchid = document.getElementById("match_id").value;
+    if (!matchid) {
+      throw "Match id cannot be empty";
+    }
 
     window.location.href = `/matches/getMatch/${matchid}`;
   } catch (error) {
     console.log(JSON.stringify(error));
-    alert(error.data.message);
+    document.getElementById("error").innerHTML = error;
+    document.getElementById("error").style.display = "block";
   }
 }
 
@@ -242,6 +254,27 @@ async function editstats(event) {
       offsides: document.getElementById("edit_team2_offsides").value,
     };
 
+    // check if any of the input is not a number
+    if (
+      isNaN(team1.goals) ||
+      isNaN(team1.fouls) ||
+      isNaN(team1.yellowCards) ||
+      isNaN(team1.redCards) ||
+      isNaN(team1.shots) ||
+      isNaN(team1.shotsOnTarget) ||
+      isNaN(team1.corners) ||
+      isNaN(team2.goals) ||
+      isNaN(team2.fouls) ||
+      isNaN(team2.yellowCards) ||
+      isNaN(team2.redCards) ||
+      isNaN(team2.shots) ||
+      isNaN(team2.shotsOnTarget) ||
+      isNaN(team2.corners) ||
+      isNaN(team2.offsides)
+    ) {
+      throw "All inputs must be numbers";
+    }
+
     let data = {
       team1: team1,
       team2: team2,
@@ -261,7 +294,8 @@ async function editstats(event) {
     window.location.href = `/matches/getMatch/${matchid}`;
   } catch (error) {
     console.log(JSON.stringify(error));
-    alert(error.data.message);
+    document.getElementById("error").innerHTML = error;
+    document.getElementById("error").style.display = "block";
   }
 }
 
