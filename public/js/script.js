@@ -5,6 +5,31 @@ async function signUpUI(event) {
     const signUpLastName = document.getElementById("signup-lastName").value;
     const signUpUsername = document.getElementById("signup-username").value;
     const signUpPassword = document.getElementById("signup-password").value;
+
+    // Check if the user has entered all the fields
+    if (
+      signUpFirstName === "" ||
+      signUpLastName === "" ||
+      signUpUsername === "" ||
+      signUpPassword === ""
+    ) {
+      throw "Please enter all the fields";
+    }
+    //check inputs doen't contain only spaces
+    if (
+      signUpFirstName.trim() === "" ||
+      signUpLastName.trim() === "" ||
+      signUpUsername.trim() === "" ||
+      signUpPassword.trim() === ""
+    ) {
+      throw "Please enter all the fields";
+    }
+    if (!checkName(signUpFirstName) || !checkName(signUpLastName)) {
+      throw "First name and last name should not be empty and it has to be alphanumeric(can include spaces) with strictly more than 2 characters";
+    }
+    checkUsername(signUpUsername);
+    checkPassword(signUpPassword);
+
     let data = {
       firstName: signUpFirstName,
       lastName: signUpLastName,
@@ -25,6 +50,8 @@ async function signUpUI(event) {
     window.location.href = "/";
   } catch (error) {
     console.log(error);
+    document.getElementById("error").innerHTML = error;
+    document.getElementById("error").style.display = "block";
   }
 }
 
@@ -143,6 +170,11 @@ async function editHighlights(event) {
     const id = document.getElementById("matchId").value;
     console.log(id);
     const highlight = document.getElementById("commentary-form-input").value;
+    //check if highlight is empty
+    if (highlight.trim() === "") {
+      throw "Highlight cannot be empty";
+    }
+
     let data = {
       id: id,
       highlight: highlight,
@@ -161,6 +193,7 @@ async function editHighlights(event) {
     window.location.href = response.url;
   } catch (error) {
     console.log(error);
+    alert(error);
   }
 }
 function checkNum(num) {
@@ -230,4 +263,38 @@ async function editstats(event) {
     console.log(JSON.stringify(error));
     alert(error.data.message);
   }
+}
+
+function checkInput(input) {
+  if (!input) throw "you must provide both username and password";
+}
+function checkUsername(username) {
+  if (typeof username !== "string") throw "username must be a string";
+
+  username = username.trim();
+
+  if (username === "") throw "username cannot be just spaces";
+
+  if (username.length < 4) throw "username must be at least 4 characters";
+
+  if (!/^[a-zA-Z0-9]+$/.test(username)) throw "username must be alphanumeric";
+
+  if (/\s/.test(username)) throw "username cannot have spaces";
+}
+function checkPassword(password) {
+  if (typeof password !== "string") throw "password must be a string";
+
+  password = password.trim();
+
+  if (/\s/.test(password)) throw "password cannot have spaces";
+
+  if (password.length < 6) throw "password must be at least 6 characters";
+
+  if (!/[A-Z]/.test(password))
+    throw "password must have at least one upper case letter";
+
+  if (!/[0-9]/.test(password)) throw "password must have at least one number";
+
+  if (/^[a-zA-Z0-9]+$/.test(password))
+    throw "password must have at least one special character";
 }
