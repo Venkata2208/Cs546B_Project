@@ -143,7 +143,6 @@ async function editHighlights(event) {
     const id = document.getElementById("matchId").value;
     console.log(id);
     const highlight = document.getElementById("commentary-form-input").value;
-    // let id = url.split("/")[4];
     let data = {
       id: id,
       highlight: highlight,
@@ -182,4 +181,53 @@ function checkCom(str) {
   str = str.trim();
   if (str.length < 5) return true;
   else return false;
+}
+
+async function editstats(event) {
+  try {
+    event.preventDefault();
+    const matchid = document.getElementById("matchId").value;
+    const team1 = {
+      goals: document.getElementById("edit_team1_goals").value,
+      fouls: document.getElementById("edit_team1_fouls").value,
+      yellowCards: document.getElementById("edit_team1_yellowcards").value,
+      redCards: document.getElementById("edit_team1_redcards").value,
+      shots: document.getElementById("edit_team1_shots").value,
+      shotsOnTarget: document.getElementById("edit_team1_shotsontarget").value,
+      corners: document.getElementById("edit_team1_corners").value,
+      offsides: document.getElementById("edit_team1_offsides").value,
+    };
+
+    const team2 = {
+      goals: document.getElementById("edit_team2_goals").value,
+      fouls: document.getElementById("edit_team2_fouls").value,
+      yellowCards: document.getElementById("edit_team2_yellowcards").value,
+      redCards: document.getElementById("edit_team2_redcards").value,
+      shots: document.getElementById("edit_team2_shots").value,
+      shotsOnTarget: document.getElementById("edit_team2_shotsontarget").value,
+      corners: document.getElementById("edit_team2_corners").value,
+      offsides: document.getElementById("edit_team2_offsides").value,
+    };
+
+    let data = {
+      team1: team1,
+      team2: team2,
+    };
+
+    data = JSON.stringify(data);
+
+    let response = await fetch(`/matches/${matchid}/stats`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: data,
+    });
+    response = await response.json();
+
+    window.location.href = `/matches/getMatch/${matchid}`;
+  } catch (error) {
+    console.log(JSON.stringify(error));
+    alert(error.data.message);
+  }
 }

@@ -36,6 +36,10 @@
     </label>
   </form>
 
-  <ul id="editHighlightsList"></ul>
+  <ul id="editHighlightsList">
+    {{#each highlights}}
+    <li>{{this}}</li>
+    {{/each}}
+  </ul>
 
 </main>

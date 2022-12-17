@@ -26,5 +26,9 @@
     <li><a href="/matches/{{id}}/highlights">Highlights</a></li>
   </ul>
 
-  <ul id="viewHighlightsList"></ul>
+  <ul id="viewHighlightsList">
+    {{#each highlights}}
+    <li>{{this}}</li>
+    {{/each}}
+  </ul>
 </main>
