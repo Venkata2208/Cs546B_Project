@@ -11,6 +11,7 @@ router.get("/:id/highlights", matches.getHighlights);
 router.post("/:id/highlights", matches.postHighlights);
 router.post("/scorecared", matches.postscorecard);
 router.get("/:id/stats", matches.getStats);
+router.post("/:id/stats", matches.postStats);
 
 // router.post("/highlights", matches.postHighlights);
 // router.route("/highlights").post(async (req, res) => {
