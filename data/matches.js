@@ -48,21 +48,21 @@ async function getPlayers(req, res, next) {
     const reqBody = req.body;
     const match_id = req.params.id;
     const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
-    const players = [];
+    let players = [];
+
     for (let i = 0; i < 11; i++) {
       players.push({
         team1: match.team1.players[i],
         team2: match.team2.players[i],
       });
     }
-    if (match) {
-      return res.render("matches/players", {
-        id: match_id,
-        team1Name: match.team1.name,
-        team2Name: match.team2.name,
-        players: players,
-      });
-    }
+
+    return res.render("matches/players", {
+      id: match_id,
+      team1Name: match.team1.name,
+      team2Name: match.team2.name,
+      players: players,
+    });
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
@@ -254,26 +254,15 @@ async function getStats(req, res, next) {
 async function postStats(req, res, next) {
   try {
     const matchId = req.params.id;
-    // const team2 = {
-    //   goals: document.getElementById("team2_goals").value,
-    //   fouls: document.getElementById("team2_fouls").value,
-    //   yellowCards: document.getElementById("team2_yellowCards").value,
-    //   redCards: document.getElementById("team2_redCards").value,
-    //   shots: document.getElementById("team2_shots").value,
-    //   shotsOnTarget: document.getElementById("team2_shotsOnTarget").value,
-    //   corners: document.getElementById("team2_corners").value,
-    //   offsides: document.getElementById("team2_offsides").value,
-    // };
+
     const team1 = req.body.team1;
     const team2 = req.body.team2;
 
-    //search match id and get current stats
     const match = await Matches.findOne({ _id: ObjectId(matchId) }).lean();
-    //get current stats
+
     const team1stats = match.team1.stats;
     const team2stats = match.team2.stats;
 
-    //add new stats to current stats
     const team1newStats = {
       goals: team1stats.goals + team1.goals,
       fouls: team1stats.fouls + team1.fouls,
@@ -294,14 +283,13 @@ async function postStats(req, res, next) {
       corners: team2stats.corners + team2.corners,
       offsides: team2stats.offsides + team2.offsides,
     };
-    //find match id and replace team1 object with key stats with new stats
+
     const match1 = await Matches.findOneAndUpdate(
       { _id: ObjectId(matchId) },
       { $set: { team1: { stats: team1newStats } } },
       { new: true }
     ).lean();
 
-    //find match id and replace team2 object with key stats with new stats
     const match2 = await Matches.findOneAndUpdate(
       { _id: ObjectId(matchId) },
 
@@ -309,8 +297,6 @@ async function postStats(req, res, next) {
       { new: true }
     ).lean();
 
-    //get match with id and return
-    const match3 = await Matches.findOne({ _id: ObjectId(matchId) }).lean();
     return res.send({ url: `/matches/getMatch/${matchId}` });
   } catch (error) {
     if (error instanceof ServerError) {
@@ -319,16 +305,3 @@ async function postStats(req, res, next) {
     return next(new ServerError(500, error.message));
   }
 }
-
-// async function postHighlights2(matchID, highlight) {
-//   const matchId = matchID;
-//   const highLight = highlight;
-//   //find match with id nd update highlights append new hightlight to array
-//   const match = await Matches.findOneAndUpdate(
-//     { _id: ObjectId(matchId) },
-//     { $push: { highlights: highLight } },
-//     { new: true }
-//   ).lean();
-
-//   return sendResponse(res, 200, match);
-// }
