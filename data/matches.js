@@ -17,6 +17,8 @@ module.exports = {
   postviewMatch,
   getviewMatch,
   getPlayers,
+  getStats,
+  postStats,
 };
 
 async function getCreateMatch(req, res, next) {
@@ -94,7 +96,6 @@ async function getviewMatch(req, res, next) {
         id: match_id,
       });
     }
-    return res.render("matches/editScoreboard/error");
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
@@ -167,7 +168,9 @@ async function createMatch(req, res, next) {
 
 async function getHighlights(req, res, next) {
   try {
-    return res.render("matches/editScoreboard/editHighlights");
+    return res.render("matches/editScoreboard/editHighlights", {
+      id: req.params.id,
+    });
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
@@ -178,15 +181,16 @@ async function getHighlights(req, res, next) {
 async function postHighlights(req, res, next) {
   try {
     //update highlights array of match
-    const matchId = req.body.matchID;
 
-    const match = await Matches.findOneAndUpdate(
+    const matchId = req.params.id;
+    const highlight = req.body.highlight;
+
+    const match = await Matches.updateOne(
       { _id: ObjectId(matchId) },
-      { $push: { highlights: req.body.higlight } },
-      { new: true }
-    ).lean();
+      { $push: { highlights: highlight } }
+    );
 
-    return sendResponse(res, 200, match);
+    return res.send({ url: `/matches/getMatch/${matchId}` });
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
@@ -215,6 +219,86 @@ async function postscorecard(req, res, next) {
     //get match with id and return
     const match = await Matches.findOne({ _id: ObjectId(matchId) }).lean();
     return sendResponse(res, 200, match);
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+async function getStats(req, res, next) {
+  try {
+    return res.render("matches/editScoreboard/editStats", {
+      id: req.params.id,
+    });
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+async function postStats(req, res, next) {
+  try {
+    const matchId = req.params.id;
+    // const team2 = {
+    //   goals: document.getElementById("team2_goals").value,
+    //   fouls: document.getElementById("team2_fouls").value,
+    //   yellowCards: document.getElementById("team2_yellowCards").value,
+    //   redCards: document.getElementById("team2_redCards").value,
+    //   shots: document.getElementById("team2_shots").value,
+    //   shotsOnTarget: document.getElementById("team2_shotsOnTarget").value,
+    //   corners: document.getElementById("team2_corners").value,
+    //   offsides: document.getElementById("team2_offsides").value,
+    // };
+    const team1 = req.body.team1;
+    const team2 = req.body.team2;
+
+    //search match id and get current stats
+    const match = await Matches.findOne({ _id: ObjectId(matchId) }).lean();
+    //get current stats
+    const team1stats = match.team1.stats;
+    const team2stats = match.team2.stats;
+
+    //add new stats to current stats
+    const team1newStats = {
+      goals: team1stats.goals + team1.goals,
+      fouls: team1stats.fouls + team1.fouls,
+      yellowCards: team1stats.yellowCards + team1.yellowCards,
+      redCards: team1stats.redCards + team1.redCards,
+      shots: team1stats.shots + team1.shots,
+      shotsOnTarget: team1stats.shotsOnTarget + team1.shotsOnTarget,
+      corners: team1stats.corners + team1.corners,
+      offsides: team1stats.offsides + team1.offsides,
+    };
+    const team2newStats = {
+      goals: team2stats.goals + team2.goals,
+      fouls: team2stats.fouls + team2.fouls,
+      yellowCards: team2stats.yellowCards + team2.yellowCards,
+      redCards: team2stats.redCards + team2.redCards,
+      shots: team2stats.shots + team2.shots,
+      shotsOnTarget: team2stats.shotsOnTarget + team2.shotsOnTarget,
+      corners: team2stats.corners + team2.corners,
+      offsides: team2stats.offsides + team2.offsides,
+    };
+    //find match id and replace team1 object with key stats with new stats
+    const match1 = await Matches.findOneAndUpdate(
+      { _id: ObjectId(matchId) },
+      { $set: { team1: { stats: team1newStats } } },
+      { new: true }
+    ).lean();
+
+    //find match id and replace team2 object with key stats with new stats
+    const match2 = await Matches.findOneAndUpdate(
+      { _id: ObjectId(matchId) },
+
+      { $set: { team2: { stats: team2newStats } } },
+      { new: true }
+    ).lean();
+
+    //get match with id and return
+    const match3 = await Matches.findOne({ _id: ObjectId(matchId) }).lean();
+    return res.send({ url: `/matches/getMatch/${matchId}` });
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
