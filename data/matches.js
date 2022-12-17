@@ -168,9 +168,22 @@ async function createMatch(req, res, next) {
 
 async function getHighlights(req, res, next) {
   try {
-    return res.render("matches/editScoreboard/editHighlights", {
-      id: req.params.id,
-    });
+    const match_id = req.params.id;
+    const loggedUserId = req.session.user.id;
+    const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
+    const highlights = match.highlights;
+
+    if (match.userId == loggedUserId) {
+      return res.render("matches/editScoreboard/editHighlights", {
+        id: req.params.id,
+        highlights: highlights,
+      });
+    } else {
+      return res.render("matches/viewScoreboard/viewHighlights", {
+        id: req.params.id,
+        highlights: highlights,
+      });
+    }
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);

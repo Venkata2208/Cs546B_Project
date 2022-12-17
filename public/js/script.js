@@ -143,7 +143,6 @@ async function editHighlights(event) {
     const id = document.getElementById("matchId").value;
     console.log(id);
     const highlight = document.getElementById("commentary-form-input").value;
-    // let id = url.split("/")[4];
     let data = {
       id: id,
       highlight: highlight,
