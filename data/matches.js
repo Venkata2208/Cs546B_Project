@@ -59,11 +59,15 @@ async function getPlayers(req, res, next) {
         team2: match.team2.players[i],
       });
     }
+    //send team1 and team2 goals also
 
     return res.render("matches/players", {
       id: match_id,
       team1Name: match.team1.name,
       team2Name: match.team2.name,
+
+      team1Goals: match.team1.stats.goals,
+      team2Goals: match.team2.stats.goals,
       players: players,
     });
   } catch (error) {
@@ -97,6 +101,11 @@ async function getviewMatch(req, res, next) {
     if (match) {
       return res.render("matches/editScoreboard/editScoreboard", {
         id: match_id,
+        team1Name: match.team1.name,
+        team2Name: match.team2.name,
+
+        team1Goals: match.team1.stats.goals,
+        team2Goals: match.team2.stats.goals,
       });
     }
   } catch (error) {
@@ -192,6 +201,11 @@ async function getHighlights(req, res, next) {
       id: req.params.id,
       highlights: highlights,
       creator: loggedUserId == match.userId,
+      team1Name: match.team1.name,
+      team2Name: match.team2.name,
+
+      team1Goals: match.team1.stats.goals,
+      team2Goals: match.team2.stats.goals,
     });
   } catch (error) {
     if (error instanceof ServerError) {
@@ -212,11 +226,21 @@ async function getCommentary(req, res, next) {
       return res.render("matches/editScoreboard/editCommentary", {
         id: req.params.id,
         commentary: commentary,
+        team1Name: match.team1.name,
+        team2Name: match.team2.name,
+
+        team1Goals: match.team1.stats.goals,
+        team2Goals: match.team2.stats.goals,
       });
     } else {
       return res.render("matches/viewScoreboard/viewCommentary", {
         id: req.params.id,
         commentary: commentary,
+        team1Name: match.team1.name,
+        team2Name: match.team2.name,
+
+        team1Goals: match.team1.stats.goals,
+        team2Goals: match.team2.stats.goals,
       });
     }
   } catch (error) {
@@ -309,10 +333,17 @@ async function getStats(req, res, next) {
   // }
 
   try {
+    const matchId = req.params.id;
+    const match = await Matches.findOne({ _id: ObjectId(matchId) }).lean();
     return res.render("matches/viewScoreboard/viewStats", {
       id: req.params.id,
 
       creator: req.session.user.currentMatch,
+      team1Name: match.team1.name,
+      team2Name: match.team2.name,
+
+      team1Goals: match.team1.stats.goals,
+      team2Goals: match.team2.stats.goals,
     });
   } catch (error) {
     if (error instanceof ServerError) {
@@ -356,7 +387,7 @@ async function postStats(req, res, next) {
 
     const result = await Matches.updateOne(
       { _id: matchId },
-      { $set: { 'team1.stats': team1newStats, 'team2.stats': team2newStats } }
+      { $set: { "team1.stats": team1newStats, "team2.stats": team2newStats } }
     );
 
     return res.send({ url: `/matches/getMatch/${matchId}` });
@@ -369,8 +400,17 @@ async function postStats(req, res, next) {
 }
 async function editStats(req, res, next) {
   try {
+    const matchId = req.params.id;
+    //find match
+    const match = await Matches.findOne({ _id: matchId });
+
     return res.render("matches/editScoreboard/editStats", {
       id: req.params.id,
+      team1Name: match.team1.name,
+      team2Name: match.team2.name,
+
+      team1Goals: match.team1.stats.goals,
+      team2Goals: match.team2.stats.goals,
     });
   } catch (error) {
     if (error instanceof ServerError) {
