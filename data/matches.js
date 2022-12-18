@@ -48,9 +48,8 @@ async function viewMatch(req, res, next) {
 
 async function getPlayers(req, res, next) {
   try {
-    const reqBody = req.body;
     const match_id = req.params.id;
-    const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
+    const match = await Matches.findOne({ _id: match_id }).lean();
     let players = [];
 
     for (let i = 0; i < 11; i++) {
@@ -80,9 +79,7 @@ async function getPlayers(req, res, next) {
 
 async function postviewMatch(req, res, next) {
   try {
-    const reqBody = req.body;
     const match_id = req.params.id;
-    // const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
     //render edit scoreboard page
     return res.send({ url: `/matches/viewMatchWithId/${match_id}` });
   } catch (error) {
@@ -149,7 +146,7 @@ async function getScheduleMatch(req, res, next) {
 
 async function createMatch(req, res, next) {
   try {
-    const reqBody = req.body;
+    const reqBody = xss(req.body);
 
     const { error } = validator.validateCreate(reqBody);
     if (error) {
@@ -192,7 +189,7 @@ async function getHighlights(req, res, next) {
   try {
     const match_id = req.params.id;
     const loggedUserId = req.session.user.id;
-    const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
+    const match = await Matches.findOne({ _id: match_id }).lean();
     const highlights = match.highlights;
 
     // if (match.userId == loggedUserId) {
@@ -229,7 +226,7 @@ async function getCommentary(req, res, next) {
   try {
     const match_id = req.params.id;
     const loggedUserId = req.session.user.id;
-    const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
+    const match = await Matches.findOne({ _id: match_id }).lean();
     const commentary = match.commentary;
 
     if (match.userId == loggedUserId) {
@@ -265,11 +262,12 @@ async function postCommentary(req, res, next) {
   try {
     //update commentary array of match
 
+    const reqBody = xss(req.body);
     const matchId = req.params.id;
-    const commentary = req.body.commentary;
+    const commentary = reqBody.commentary;
 
     const match = await Matches.updateOne(
-      { _id: ObjectId(matchId) },
+      { _id: matchId },
       { $push: { commentary: commentary } }
     );
 
@@ -287,10 +285,11 @@ async function postHighlights(req, res, next) {
     //update highlights array of match
 
     const matchId = req.params.id;
-    const highlight = req.body.highlight;
+    const reqBody = xss(req.body);
+    const highlight = reqBody.highlight;
 
     const match = await Matches.updateOne(
-      { _id: ObjectId(matchId) },
+      { _id: matchId },
       { $push: { highlights: highlight } }
     );
 
@@ -304,24 +303,25 @@ async function postHighlights(req, res, next) {
 }
 async function postscorecard(req, res, next) {
   try {
-    const matchId = req.body.matchID;
-    const team1stats = req.body.team1stats;
-    const team2stats = req.body.team2stats;
+    const reqBody = xss(req.body);
+    const matchId = reqBody.matchID;
+    const team1stats = reqBody.team1stats;
+    const team2stats = reqBody.team2stats;
     //find match id and replace team1 object with key stats with new stats
     const match1 = await Matches.findOneAndUpdate(
-      { _id: ObjectId(matchId) },
+      { _id: matchId },
       { $set: { team1: { stats: team1stats } } },
       { new: true }
     ).lean();
     //find match id and replace team2 object with key stats with new stats
     const match2 = await Matches.findOneAndUpdate(
-      { _id: ObjectId(matchId) },
+      { _id: matchId },
 
       { $set: { team2: { stats: team2stats } } },
       { new: true }
     ).lean();
     //get match with id and return
-    const match = await Matches.findOne({ _id: ObjectId(matchId) }).lean();
+    const match = await Matches.findOne({ _id: matchId }).lean();
     return sendResponse(res, 200, match);
   } catch (error) {
     if (error instanceof ServerError) {
@@ -344,7 +344,7 @@ async function getStats(req, res, next) {
 
   try {
     const matchId = req.params.id;
-    const match = await Matches.findOne({ _id: ObjectId(matchId) }).lean();
+    const match = await Matches.findOne({ _id: matchId }).lean();
     return res.render("matches/viewScoreboard/viewStats", {
       id: req.params.id,
 
@@ -367,9 +367,10 @@ async function getStats(req, res, next) {
 async function postStats(req, res, next) {
   try {
     const matchId = req.params.id;
+    const reqBody = xss(req.body);
 
-    const team1 = req.body.team1;
-    const team2 = req.body.team2;
+    const team1 = reqBody.team1;
+    const team2 = reqBody.team2;
 
     const match = await Matches.findOne({ _id: matchId });
 

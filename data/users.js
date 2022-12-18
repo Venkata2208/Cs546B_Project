@@ -4,7 +4,7 @@ const ServerError = require("../shared/server-error");
 const bcrypt = require("bcrypt");
 const sendResponse = require("../shared/sendResponse");
 const { isValidObjectId: isObjectId } = require("mongoose");
-const xss = require("xss");
+const xss = require('../shared/xssHelper');
 const salt = 10;
 
 module.exports = {
@@ -58,7 +58,7 @@ async function getUser(req, res, next) {
 
 async function login(req, res, next) {
   try {
-    const reqBody = req.body;
+    const reqBody = xss(req.body);
 
     const { error } = validator.validateUserLogin(reqBody);
     if (error) {
@@ -110,7 +110,7 @@ async function logout(req, res, next) {
 
 async function signUp(req, res, next) {
   try {
-    const requestBody = req.body;
+    const reqBody = xss(req.body);
 
     const { error } = validator.validateUserSignUp(requestBody);
     if (error) {
