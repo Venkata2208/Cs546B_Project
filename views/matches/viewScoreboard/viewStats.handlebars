@@ -5,8 +5,8 @@
     
 
     <a class="fields">{{team1Name}}</a>
-    <div class="count" value="0" id="team1_goals">{{team1Goals}}</div>
-    <div class="count" value="0" id="team2_goals">{{team2Goals}}</div>
+    <div class="count" id="team1_goals">{{team1Goals}}</div>
+    <div class="count" id="team2_goals">{{team2Goals}}</div>
     <a class="fields">{{team2Name}}</a>
 
   </ul>
@@ -16,10 +16,12 @@
     <a href="/matches/{{id}}/stats">Stats</a>
     <a href="/matches/{{id}}/commentary">Commentary</a>
     <a href="/matches/{{id}}/highlights">Highlights</a>
-    {{#if creator}}
+    
+  </ul>
+
+  {{#if creator}}
     <a href="/matches/{{id}}/editStats">Edit</a>
     {{/if}}
-  </ul>
 
   <table class="table1">
     <tr>

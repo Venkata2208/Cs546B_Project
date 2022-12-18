@@ -214,16 +214,17 @@ td {
 .statsForm {
   background-color: rgb(91, 187, 107);
 
-  padding: 40px 208px;
+  padding: 20px 248px;
 }
 .statsForm .class1 {
   text-align: center;
 }
 .statsForm .fields {
-  text-align: center;
-  height: 20px;
-  width: 30%;
-  display: inline-block;
+  text-align:left;
+  height: 30px;
+  width: 60%;
+  
+  
 }
 .statsForm .btn3 {
   text-align: center;
