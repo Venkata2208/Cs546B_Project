@@ -328,7 +328,7 @@ async function postStats(req, res, next) {
     const team1 = req.body.team1;
     const team2 = req.body.team2;
 
-    const match = await Matches.findOne({ _id: ObjectId(matchId) }).lean();
+    const match = await Matches.findOne({ _id: matchId });
 
     const team1stats = match.team1.stats;
     const team2stats = match.team2.stats;
@@ -336,36 +336,28 @@ async function postStats(req, res, next) {
     const team1newStats = {
       goals: team1stats.goals + team1.goals,
       fouls: team1stats.fouls + team1.fouls,
-      yellowCards: team1stats.yellowCards + team1.yellowCards,
-      redCards: team1stats.redCards + team1.redCards,
+      yellowCards: team1stats.yellowcards + team1.yellowCards,
+      redCards: team1stats.redcards + team1.redCards,
       shots: team1stats.shots + team1.shots,
-      shotsOnTarget: team1stats.shotsOnTarget + team1.shotsOnTarget,
+      shotsOnTarget: team1stats.shotsontarget + team1.shotsOnTarget,
       corners: team1stats.corners + team1.corners,
       offsides: team1stats.offsides + team1.offsides,
     };
     const team2newStats = {
       goals: team2stats.goals + team2.goals,
       fouls: team2stats.fouls + team2.fouls,
-      yellowCards: team2stats.yellowCards + team2.yellowCards,
-      redCards: team2stats.redCards + team2.redCards,
+      yellowCards: team2stats.yellowcards + team2.yellowCards,
+      redCards: team2stats.redcards + team2.redCards,
       shots: team2stats.shots + team2.shots,
-      shotsOnTarget: team2stats.shotsOnTarget + team2.shotsOnTarget,
+      shotsOnTarget: team2stats.shotsontarget + team2.shotsOnTarget,
       corners: team2stats.corners + team2.corners,
       offsides: team2stats.offsides + team2.offsides,
     };
 
-    const match1 = await Matches.findOneAndUpdate(
-      { _id: ObjectId(matchId) },
-      { $set: { team1: { stats: team1newStats } } },
-      { new: true }
-    ).lean();
-
-    const match2 = await Matches.findOneAndUpdate(
-      { _id: ObjectId(matchId) },
-
-      { $set: { team2: { stats: team2newStats } } },
-      { new: true }
-    ).lean();
+    const result = await Matches.updateOne(
+      { _id: matchId },
+      { $set: { 'team1.stats': team1newStats, 'team2.stats': team2newStats } }
+    );
 
     return res.send({ url: `/matches/getMatch/${matchId}` });
   } catch (error) {
