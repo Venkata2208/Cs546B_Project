@@ -112,23 +112,23 @@ async function signUp(req, res, next) {
   try {
     const reqBody = xss(req.body);
 
-    const { error } = validator.validateUserSignUp(requestBody);
+    const { error } = validator.validateUserSignUp(reqBody);
     if (error) {
       throw new ServerError(400, error.message);
     }
 
-    const username = requestBody.username.toLowerCase();
+    const username = reqBody.username.toLowerCase();
 
     const user = await Users.findOne({ username: username });
 
     if (user) throw new ServerError(400, "User already exists with given username");
 
-    const password = await bcrypt.hash(requestBody.password, salt);
+    const password = await bcrypt.hash(reqBody.password, salt);
 
     const response = await Users.create({
-      firstName: requestBody.firstName,
-      lastName: requestBody.lastName,
-      name: `${requestBody.firstName} ${requestBody.lastName}`,
+      firstName: reqBody.firstName,
+      lastName: reqBody.lastName,
+      name: `${reqBody.firstName} ${reqBody.lastName}`,
       username: username,
       password: password,
     });

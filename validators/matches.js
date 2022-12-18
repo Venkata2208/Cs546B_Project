@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 module.exports = {
     validateCreate,
-    validateUpdate,
+    validatePostStats,
     validatePostComment,
     validatePostHighlights,
 };
@@ -16,8 +16,8 @@ module.exports = {
 function validateCreate(requestBody) {
     const schema = Joi.object().keys({
         name: Joi.string().alphanum().min(3).max(20).required(),
-        startTime: Joi.number().optional(),
-        duration: Joi.number().min(30).required(),
+        startTime: Joi.number().integer().optional(),
+        duration: Joi.number().integer().min(1).required(),
         team1: {
             name: Joi.string().alphanum().min(3).max(20).required(),
             players: Joi.array().min(11).max(11).required()
@@ -38,34 +38,30 @@ function validateCreate(requestBody) {
  * @return {*} Validate Object
  */
 
-function validateUpdate(requestBody) {
+function validatePostStats(requestBody) {
     const schema = Joi.object({
-        team1: {
-            stats: Joi.object({
-                goals: Joi.string(),
-                shots: Joi.string(),
-                shotsontarget: Joi.string(),
-                fouls: Joi.string(),
-                passes: Joi.string(),
-                yellowcards: Joi.string(),
-                redcards: Joi.string(),
-                offsides: Joi.string(),
-                corners: Joi.string(),
-            }).min(1),
-        },
-        team2: {
-            stats: Joi.object({
-                goals: Joi.string(),
-                shots: Joi.string(),
-                shotsontarget: Joi.string(),
-                fouls: Joi.string(),
-                passes: Joi.string(),
-                yellowcards: Joi.string(),
-                redcards: Joi.string(),
-                offsides: Joi.string(),
-                corners: Joi.string(),
-            }).min(1),
-        },
+        team1: Joi.object({
+            goals: Joi.number().integer(),
+            shots: Joi.number().integer(),
+            shotsontarget: Joi.number().integer(),
+            fouls: Joi.number().integer(),
+            passes: Joi.number().integer(),
+            yellowcards: Joi.number().integer(),
+            redcards: Joi.number().integer(),
+            offsides: Joi.number().integer(),
+            corners: Joi.number().integer(),
+        }).min(1),
+        team2: Joi.object({
+            goals: Joi.number().integer(),
+            shots: Joi.number().integer(),
+            shotsontarget: Joi.number().integer(),
+            fouls: Joi.number().integer(),
+            passes: Joi.number().integer(),
+            yellowcards: Joi.number().integer(),
+            redcards: Joi.number().integer(),
+            offsides: Joi.number().integer(),
+            corners: Joi.number().integer(),
+        }).min(1),
     }).min(1);
     return schema.validate(requestBody);
 };
@@ -78,7 +74,7 @@ function validateUpdate(requestBody) {
 
 function validatePostComment(requestBody) {
     const schema = Joi.object().keys({
-        text: Joi.string().required()
+        commentary: Joi.string().min(3).required()
     });
     return schema.validate(requestBody);
 };
@@ -91,20 +87,7 @@ function validatePostComment(requestBody) {
 
 function validatePostHighlights(requestBody) {
     const schema = Joi.object().keys({
-        main: Joi.string().required(),
-        playerofthematch: {
-            name: Joi.string().required(),
-            comments: Joi.string().required()
-        },
-        captain1: {
-            name: Joi.string().required(),
-            comments: Joi.string().required()
-        },
-        captain2: {
-            name: Joi.string().required(),
-            comments: Joi.string().required()
-        },
-        extra: Joi.string().required()
+        highlight: Joi.string().min(3).required()
     });
     return schema.validate(requestBody);
 };

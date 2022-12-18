@@ -2,8 +2,10 @@ const mongoose = require("mongoose");
 
 const teamSchema = new mongoose.Schema(
   {
-    name: String,
-
+    name: {
+      type: String,
+      required: true
+    },
     stats: {
       goals: {
         type: Number,
@@ -43,12 +45,28 @@ const teamSchema = new mongoose.Schema(
       },
     },
     players: {
-      type: Array,
-      default: [],
+      type: [String],
+      min: 11,
+      max: 11
     },
   },
   { _id: false }
 );
+
+const commentSchema = new mongoose.Schema(
+  {
+    time: {
+      type: Number,
+      required: true,
+    },
+    comment: {
+      type: Number,
+      required: true,
+    },
+  },
+  { _id: false }
+);
+
 const schema = new mongoose.Schema(
   {
     name: {
@@ -73,7 +91,7 @@ const schema = new mongoose.Schema(
       required: true,
     },
     commentary: {
-      type: Array,
+      type: [commentSchema],
       default: [],
     },
     highlights: {
