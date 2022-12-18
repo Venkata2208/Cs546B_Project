@@ -3,7 +3,7 @@ const validator = require("../validators/matches");
 const ServerError = require("../shared/server-error");
 const sendResponse = require("../shared/sendResponse");
 const moment = require("moment");
-const xss = require('../shared/xssHelper');
+const { ObjectId } = require("mongodb");
 
 module.exports = {
   getCreateMatch,
@@ -33,6 +33,115 @@ async function getCreateMatch(req, res, next) {
   }
 }
 
+async function viewMatch(req, res, next) {
+  try {
+    return res.render("matches/viewMatch");
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+
+async function getPlayers(req, res, next) {
+  try {
+    const match_id = req.params.id;
+    const match = await Matches.findOne({ _id: match_id }).lean();
+    let players = [];
+
+    for (let i = 0; i < 11; i++) {
+      players.push({
+        team1: match.team1.players[i],
+        team2: match.team2.players[i],
+      });
+    }
+    //send team1 and team2 goals also
+
+    return res.render("matches/players", {
+      id: match_id,
+      team1Name: match.team1.name,
+      team2Name: match.team2.name,
+
+      team1Goals: match.team1.stats.goals,
+      team2Goals: match.team2.stats.goals,
+      players: players,
+    });
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+
+async function postviewMatch(req, res, next) {
+  try {
+    const match_id = req.params.id;
+    //render edit scoreboard page
+    return res.send({ url: `/matches/viewMatchWithId/${match_id}` });
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+
+async function getviewMatch(req, res, next) {
+  try {
+    //isMatchStarted
+    const reqBody = req.body;
+    const match_id = req.params.id;
+    const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
+    let players = [];
+
+    for (let i = 0; i < 11; i++) {
+      players.push({
+        team1: match.team1.players[i],
+        team2: match.team2.players[i],
+      });
+    }
+    //send team1 and team2 goals also
+
+    if (match.isMatchStarted) {
+      return res.render("matches/editScoreboard/editScoreboard", {
+        id: match_id,
+        team1Name: match.team1.name,
+        team2Name: match.team2.name,
+
+        team1Goals: match.team1.stats.goals,
+        team2Goals: match.team2.stats.goals,
+      });
+    } else {
+      return res.render("matches/matchnotstarted", {
+        id: match_id,
+        team1Name: match.team1.name,
+        team2Name: match.team2.name,
+
+        team1Goals: match.team1.stats.goals,
+        team2Goals: match.team2.stats.goals,
+        players: players,
+      });
+    }
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+async function getMatches(req, res, next) {
+  try {
+    const matches = await Matches.find({ userId: req.session.user.id }).lean();
+    return res.render("matches/history", { data: matches });
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
 async function getScheduleMatch(req, res, next) {
   try {
     return res.render("matches/schedule");

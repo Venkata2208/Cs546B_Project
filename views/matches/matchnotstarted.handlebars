@@ -1,0 +1,28 @@
+<main class="main1">
+
+
+    <ul class="main-nav">
+
+        <a class="fields">{{team1Name}}</a>
+        <div style=" width:auto" class="count" value="0" id="team1_goals">{{team1Goals}}</div>
+
+        <div class="count" value="0" id="team2_goals">{{team2Goals}}</div>
+        <a class="fields">{{team2Name}}</a>
+
+    </ul>
+
+
+
+    <table class="table1">
+        <tr>
+            <th> {{team1Name}}</th>
+            <th>{{team2Name}}</th>
+        </tr>
+        {{#each players}} <tr>
+            <td>{{this.team1}}</td>
+            <td>{{this.team2}}</td>
+        </tr>
+        {{/each}}
+    </table>
+
+</main>
