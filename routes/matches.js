@@ -13,8 +13,10 @@ router.get("/:id/commentary", matches.getCommentary);
 router.post("/:id/commentary", matches.postCommentary);
 
 router.post("/scorecared", matches.postscorecard);
-router.get("/:id/stats", matches.getStats);
+// router.get("/:id/stats", matches.getStats);
 router.post("/:id/stats", matches.postStats);
+router.get("/:id/editStats", isAuthorized, matches.editStats);
+router.get("/:id/stats", isAuthorized, matches.getStats);
 
 // router.post("/highlights", matches.postHighlights);
 // router.route("/highlights").post(async (req, res) => {

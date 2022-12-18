@@ -24,6 +24,9 @@
     <li><a href="/matches/{{id}}/stats">Stats</a></li>
     <li><a href="/matches/{{id}}/commentary">Commentary</a></li>
     <li><a href="/matches/{{id}}/highlights">Highlights</a></li>
+    {{#if creator}}
+    <li><a href="/matches/{{id}}/editStats">Edit</a></li>
+    {{/if}}
   </ul>
 
   <table class="table1">

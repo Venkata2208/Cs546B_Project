@@ -21,6 +21,7 @@ module.exports = {
   postStats,
   getCommentary,
   postCommentary,
+  editStats,
 };
 
 async function getCreateMatch(req, res, next) {
@@ -296,9 +297,22 @@ async function postscorecard(req, res, next) {
   }
 }
 async function getStats(req, res, next) {
+  // try {
+  //   return res.render("matches/editScoreboard/editStats", {
+  //     id: req.params.id,
+  //   });
+  // } catch (error) {
+  //   if (error instanceof ServerError) {
+  //     return next(error);
+  //   }
+  //   return next(new ServerError(500, error.message));
+  // }
+
   try {
-    return res.render("matches/editScoreboard/editStats", {
+    return res.render("matches/viewScoreboard/viewStats", {
       id: req.params.id,
+
+      creator: req.session.user.currentMatch,
     });
   } catch (error) {
     if (error instanceof ServerError) {
@@ -354,6 +368,18 @@ async function postStats(req, res, next) {
     ).lean();
 
     return res.send({ url: `/matches/getMatch/${matchId}` });
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+async function editStats(req, res, next) {
+  try {
+    return res.render("matches/editScoreboard/editStats", {
+      id: req.params.id,
+    });
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
