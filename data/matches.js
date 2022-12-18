@@ -98,7 +98,7 @@ async function getviewMatch(req, res, next) {
     const reqBody = req.body;
     const match_id = req.params.id;
     const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
-    if (match) {
+    if (req.session.user.currentMatch) {
       return res.render("matches/editScoreboard/editScoreboard", {
         id: match_id,
         team1Name: match.team1.name,
@@ -200,7 +200,7 @@ async function getHighlights(req, res, next) {
     return res.render("matches/editScoreboard/editHighlights", {
       id: req.params.id,
       highlights: highlights,
-      creator: loggedUserId == match.userId,
+      creator: req.session.user.currentMatch,
       team1Name: match.team1.name,
       team2Name: match.team2.name,
 
@@ -369,20 +369,20 @@ async function postStats(req, res, next) {
     const team1newStats = {
       goals: team1stats.goals + team1.goals,
       fouls: team1stats.fouls + team1.fouls,
-      yellowCards: team1stats.yellowcards + team1.yellowCards,
-      redCards: team1stats.redcards + team1.redCards,
+      yellowcards: team1stats.yellowcards + team1.yellowcards,
+      redcards: team1stats.redcards + team1.redcards,
       shots: team1stats.shots + team1.shots,
-      shotsOnTarget: team1stats.shotsontarget + team1.shotsOnTarget,
+      shotsontarget: team1stats.shotsontarget + team1.shotsontarget,
       corners: team1stats.corners + team1.corners,
       offsides: team1stats.offsides + team1.offsides,
     };
     const team2newStats = {
       goals: team2stats.goals + team2.goals,
       fouls: team2stats.fouls + team2.fouls,
-      yellowCards: team2stats.yellowcards + team2.yellowCards,
-      redCards: team2stats.redcards + team2.redCards,
+      yellowcards: team2stats.yellowcards + team2.yellowcards,
+      redcards: team2stats.redcards + team2.redcards,
       shots: team2stats.shots + team2.shots,
-      shotsOnTarget: team2stats.shotsontarget + team2.shotsOnTarget,
+      shotsontarget: team2stats.shotsontarget + team2.shotsontarget,
       corners: team2stats.corners + team2.corners,
       offsides: team2stats.offsides + team2.offsides,
     };
@@ -392,7 +392,7 @@ async function postStats(req, res, next) {
       { $set: { "team1.stats": team1newStats, "team2.stats": team2newStats } }
     );
 
-    return res.send({ url: `/matches/getMatch/${matchId}` });
+    return res.send({ url: `/matches/${matchId}` });
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);

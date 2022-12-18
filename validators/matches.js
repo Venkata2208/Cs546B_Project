@@ -39,36 +39,34 @@ function validateCreate(requestBody) {
  */
 
 function validateUpdate(requestBody) {
-    const schema = Joi.object().keys({
+    const schema = Joi.object({
         team1: {
-            goal: Joi.number().required(),
-            scorer: Joi.any().when('goal', { is: 0, then: Joi.string().optional(), otherwise: Joi.string().required() }),
-            stats: {
-                shots: Joi.number().required(),
-                shotsontarget: Joi.number().required(),
-                fouls: Joi.number().required(),
-                passes: Joi.number().required(),
-                yellowcards: Joi.number().required(),
-                redcards: Joi.number().required(),
-                offsides: Joi.number().required(),
-                corners: Joi.number().required()
-            },
+            stats: Joi.object({
+                goals: Joi.string(),
+                shots: Joi.string(),
+                shotsontarget: Joi.string(),
+                fouls: Joi.string(),
+                passes: Joi.string(),
+                yellowcards: Joi.string(),
+                redcards: Joi.string(),
+                offsides: Joi.string(),
+                corners: Joi.string(),
+            }).min(1),
         },
         team2: {
-            goal: Joi.number().required(),
-            scorer: Joi.any().when('goal', { is: 0, then: Joi.string().optional(), otherwise: Joi.string().required() }),
-            stats: {
-                shots: Joi.number().required(),
-                shotsontarget: Joi.number().required(),
-                fouls: Joi.number().required(),
-                passes: Joi.number().required(),
-                yellowcards: Joi.number().required(),
-                redcards: Joi.number().required(),
-                offsides: Joi.number().required(),
-                corners: Joi.number().required()
-            },
+            stats: Joi.object({
+                goals: Joi.string(),
+                shots: Joi.string(),
+                shotsontarget: Joi.string(),
+                fouls: Joi.string(),
+                passes: Joi.string(),
+                yellowcards: Joi.string(),
+                redcards: Joi.string(),
+                offsides: Joi.string(),
+                corners: Joi.string(),
+            }).min(1),
         },
-    });
+    }).min(1);
     return schema.validate(requestBody);
 };
 

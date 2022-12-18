@@ -7,7 +7,7 @@ router.get("/createMatch", matches.getCreateMatch);
 router.get("/scheduleMatch", matches.getScheduleMatch);
 router.post("/", matches.createMatch); //
 router.get("/history", matches.getMatches);
-router.get("/:id/highlights", matches.getHighlights);
+router.get("/:id/highlights", isAuthorized, matches.getHighlights);
 router.post("/:id/highlights", matches.postHighlights); //
 router.get("/:id/commentary", matches.getCommentary);
 router.post("/:id/commentary", matches.postCommentary); //
@@ -29,7 +29,7 @@ router.get("/:id/stats", isAuthorized, matches.getStats);
 router.get("/viewMatch", matches.viewMatch);
 router.get("/:id/players", matches.getPlayers);
 router.post("/viewMatchWithId/:id", matches.postviewMatch);
-router.get("/getMatch/:id", isAuthorized, matches.getviewMatch);
+router.get("/:id", isAuthorized, matches.getviewMatch);
 
 // router.put("/", matches.updateMatch);
 // router.post("/comments", matches.postComment);

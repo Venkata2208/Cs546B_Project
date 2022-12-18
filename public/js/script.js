@@ -58,41 +58,41 @@ async function createMatch(event) {
   try {
     event.preventDefault();
     const matchName = document.getElementById("match_name").value;
-    if (!checkName(matchName)) {
-      throw "Match name should not be empty and it has to be alphanumeric(can include spaces) with strictly more than 2 characters";
-    }
-    if (
-      !checkName(document.getElementById("team1_name").value) ||
-      !checkName(document.getElementById("team2_name").value)
-    ) {
-      throw "Team name should not be empty and it has to be alphanumeric(can include spaces) with strictly more than 2 characters";
-    }
-    if (
-      !checkName(document.getElementById("team1_player1").value) ||
-      !checkName(document.getElementById("team1_player2").value) ||
-      !checkName(document.getElementById("team1_player3").value) ||
-      !checkName(document.getElementById("team1_player4").value) ||
-      !checkName(document.getElementById("team1_player5").value) ||
-      !checkName(document.getElementById("team1_player6").value) ||
-      !checkName(document.getElementById("team1_player7").value) ||
-      !checkName(document.getElementById("team1_player8").value) ||
-      !checkName(document.getElementById("team1_player9").value) ||
-      !checkName(document.getElementById("team1_player10").value) ||
-      !checkName(document.getElementById("team1_player11").value) ||
-      !checkName(document.getElementById("team2_player1").value) ||
-      !checkName(document.getElementById("team2_player2").value) ||
-      !checkName(document.getElementById("team2_player3").value) ||
-      !checkName(document.getElementById("team2_player4").value) ||
-      !checkName(document.getElementById("team2_player5").value) ||
-      !checkName(document.getElementById("team2_player6").value) ||
-      !checkName(document.getElementById("team2_player7").value) ||
-      !checkName(document.getElementById("team2_player8").value) ||
-      !checkName(document.getElementById("team2_player9").value) ||
-      !checkName(document.getElementById("team2_player10").value) ||
-      !checkName(document.getElementById("team2_player11").value)
-    ) {
-      throw "Player/s name should not be empty and it has to be alphanumeric(can include spaces) with strictly more than 2 characters";
-    }
+    // if (!checkName(matchName)) {
+    //   throw "Match name should not be empty and it has to be alphanumeric(can include spaces) with strictly more than 2 characters";
+    // }
+    // if (
+    //   !checkName(document.getElementById("team1_name").value) ||
+    //   !checkName(document.getElementById("team2_name").value)
+    // ) {
+    //   throw "Team name should not be empty and it has to be alphanumeric(can include spaces) with strictly more than 2 characters";
+    // }
+    // if (
+    //   !checkName(document.getElementById("team1_player1").value) ||
+    //   !checkName(document.getElementById("team1_player2").value) ||
+    //   !checkName(document.getElementById("team1_player3").value) ||
+    //   !checkName(document.getElementById("team1_player4").value) ||
+    //   !checkName(document.getElementById("team1_player5").value) ||
+    //   !checkName(document.getElementById("team1_player6").value) ||
+    //   !checkName(document.getElementById("team1_player7").value) ||
+    //   !checkName(document.getElementById("team1_player8").value) ||
+    //   !checkName(document.getElementById("team1_player9").value) ||
+    //   !checkName(document.getElementById("team1_player10").value) ||
+    //   !checkName(document.getElementById("team1_player11").value) ||
+    //   !checkName(document.getElementById("team2_player1").value) ||
+    //   !checkName(document.getElementById("team2_player2").value) ||
+    //   !checkName(document.getElementById("team2_player3").value) ||
+    //   !checkName(document.getElementById("team2_player4").value) ||
+    //   !checkName(document.getElementById("team2_player5").value) ||
+    //   !checkName(document.getElementById("team2_player6").value) ||
+    //   !checkName(document.getElementById("team2_player7").value) ||
+    //   !checkName(document.getElementById("team2_player8").value) ||
+    //   !checkName(document.getElementById("team2_player9").value) ||
+    //   !checkName(document.getElementById("team2_player10").value) ||
+    //   !checkName(document.getElementById("team2_player11").value)
+    // ) {
+    //   throw "Player/s name should not be empty and it has to be alphanumeric(can include spaces) with strictly more than 2 characters";
+    // }
     const team1 = {
       name: document.getElementById("team1_name").value,
       players: [
@@ -127,13 +127,14 @@ async function createMatch(event) {
       ],
     };
     const duration = document.getElementById("duration").value;
-    if (!duration) {
-      throw "Duration should not be empty";
-    }
+    const startTime = document.getElementById("startTime").value;
+    // if (!duration) {
+    //   throw "Duration should not be empty";
+    // }
 
-    if (isNaN(duration)) {
-      throw "Duration should be a number";
-    }
+    // if (isNaN(duration)) {
+    //   throw "Duration should be a number";
+    // }
 
     let data = {
       name: matchName,
@@ -141,6 +142,121 @@ async function createMatch(event) {
       team1: team1,
       team2: team2,
     };
+
+    if (startTime) data['startTime'] = Math.floor(Date.parse(startTime) / 1000);
+
+    data = JSON.stringify(data);
+
+    let response = await fetch("/matches/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: data,
+    });
+    response = await response.json();
+    window.location.href = "/matches/history";
+  } catch (error) {
+    console.log(error);
+    document.getElementById("error").innerHTML = error;
+    document.getElementById("error").style.display = "block";
+  }
+}
+
+async function scheduleMatch(event) {
+  try {
+    event.preventDefault();
+    const matchName = document.getElementById("match_name").value;
+    // if (!checkName(matchName)) {
+    //   throw "Match name should not be empty and it has to be alphanumeric(can include spaces) with strictly more than 2 characters";
+    // }
+    // if (
+    //   !checkName(document.getElementById("team1_name").value) ||
+    //   !checkName(document.getElementById("team2_name").value)
+    // ) {
+    //   throw "Team name should not be empty and it has to be alphanumeric(can include spaces) with strictly more than 2 characters";
+    // }
+    // if (
+    //   !checkName(document.getElementById("team1_player1").value) ||
+    //   !checkName(document.getElementById("team1_player2").value) ||
+    //   !checkName(document.getElementById("team1_player3").value) ||
+    //   !checkName(document.getElementById("team1_player4").value) ||
+    //   !checkName(document.getElementById("team1_player5").value) ||
+    //   !checkName(document.getElementById("team1_player6").value) ||
+    //   !checkName(document.getElementById("team1_player7").value) ||
+    //   !checkName(document.getElementById("team1_player8").value) ||
+    //   !checkName(document.getElementById("team1_player9").value) ||
+    //   !checkName(document.getElementById("team1_player10").value) ||
+    //   !checkName(document.getElementById("team1_player11").value) ||
+    //   !checkName(document.getElementById("team2_player1").value) ||
+    //   !checkName(document.getElementById("team2_player2").value) ||
+    //   !checkName(document.getElementById("team2_player3").value) ||
+    //   !checkName(document.getElementById("team2_player4").value) ||
+    //   !checkName(document.getElementById("team2_player5").value) ||
+    //   !checkName(document.getElementById("team2_player6").value) ||
+    //   !checkName(document.getElementById("team2_player7").value) ||
+    //   !checkName(document.getElementById("team2_player8").value) ||
+    //   !checkName(document.getElementById("team2_player9").value) ||
+    //   !checkName(document.getElementById("team2_player10").value) ||
+    //   !checkName(document.getElementById("team2_player11").value)
+    // ) {
+    //   throw "Player/s name should not be empty and it has to be alphanumeric(can include spaces) with strictly more than 2 characters";
+    // }
+    const team1 = {
+      name: document.getElementById("team1_name").value,
+      players: [
+        document.getElementById("team1_player1").value,
+        document.getElementById("team1_player2").value,
+        document.getElementById("team1_player3").value,
+        document.getElementById("team1_player4").value,
+        document.getElementById("team1_player5").value,
+        document.getElementById("team1_player6").value,
+        document.getElementById("team1_player7").value,
+        document.getElementById("team1_player8").value,
+        document.getElementById("team1_player9").value,
+        document.getElementById("team1_player10").value,
+        document.getElementById("team1_player11").value,
+      ],
+    };
+
+    const team2 = {
+      name: document.getElementById("team2_name").value,
+      players: [
+        document.getElementById("team2_player1").value,
+        document.getElementById("team2_player2").value,
+        document.getElementById("team2_player3").value,
+        document.getElementById("team2_player4").value,
+        document.getElementById("team2_player5").value,
+        document.getElementById("team2_player6").value,
+        document.getElementById("team2_player7").value,
+        document.getElementById("team2_player8").value,
+        document.getElementById("team2_player9").value,
+        document.getElementById("team2_player10").value,
+        document.getElementById("team2_player11").value,
+      ],
+    };
+    const duration = document.getElementById("duration").value;
+    let startTime = document.getElementById("startTime").value;
+    // if (!duration) {
+    //   throw "Duration should not be empty";
+    // }
+
+    // if (isNaN(duration)) {
+    //   throw "Duration should be a number";
+    // }
+
+    if (!startTime) throw 'Start time is mandatory';
+    startTime = Math.floor(Date.parse(startTime) / 1000);
+    if (startTime < Math.floor(new Date().getTime() / 1000)) throw 'Start time must be in future';
+
+    let data = {
+      name: matchName,
+      startTime: startTime,
+      duration: duration,
+      team1: team1,
+      team2: team2,
+    };
+
 
     data = JSON.stringify(data);
 
@@ -168,7 +284,7 @@ async function viewmatch(event) {
       throw "Match id cannot be empty";
     }
 
-    window.location.href = `/matches/getMatch/${matchid}`;
+    window.location.href = `/matches/${matchid}`;
   } catch (error) {
     console.log(JSON.stringify(error));
     document.getElementById("error").innerHTML = error;
@@ -328,7 +444,7 @@ async function editstats(event) {
     });
     response = await response.json();
 
-    window.location.href = `/matches/getMatch/${matchid}`;
+    window.location.href = `/matches/${matchid}`;
   } catch (error) {
     console.log(JSON.stringify(error));
     document.getElementById("error").innerHTML = error;

@@ -1,5 +1,6 @@
 const ServerError = require('../shared/server-error');
 const Matches = require('../models/matches');
+const moment = require('moment');
 const { isValidObjectId: isObjectId } = require("mongoose");
 
 module.exports = {
@@ -36,6 +37,12 @@ async function isAuthorized(req, res, next) {
 
             if (req.session.user.id == match.userId) {
                 req.session.user.currentMatch = true;
+            } else req.session.user.currentMatch = false;
+
+            if (match.startTime > moment().unix()) {
+                req.session.user.isMatchStarted = false;
+            } else {
+                req.session.user.isMatchStarted = true;
             }
 
             return next();
