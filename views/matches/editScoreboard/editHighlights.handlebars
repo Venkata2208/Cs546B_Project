@@ -22,18 +22,29 @@
   <ul class="main-nav">
     <a href="/persondetails/{{id}}">{{firstName}} {{lastName}}</a>
     <li><a href="/matches/{{id}}/players">Players</a></li>
-    <li><a href="/matches/{{id}}/editScoreboard/editStats">Stats</a></li>
-    <li><a href="/matches/{{id}}/editScoreboard/editCommentary">Commentary</a></li>
+    <li><a href="/matches/{{id}}/stats">Stats</a></li>
+    <li><a href="/matches/{{id}}/commentary">Commentary</a></li>
     <li><a href="/matches/{{id}}/highlights">Highlights</a></li>
   </ul>
+  {{#if creator}}
 
-  <form method="POST" id="highlightsForm" class="commentaryForm">
-    <label id="highlights-form-label" class="commentary-form-label">
-      <input class="commentary-form-input" name="input" type="text" id="commentary-form-input" size="60" />
-      <button class="commentarybtn" type="submit">Submit </button>
+  <form id="highlightsForm" class="commentaryForm" onsubmit="editHighlights(event)">
+    <option id="matchId" hidden="true">{{id}}</option>
+    <label id="highlights-form-label" class="highlights-form-label">
+      {{!-- <input value="" /> --}}
+      <input class="highlights-form-input" name="input" type="text" id="highlights-form-input" size="60" />
+      <button class="highlightsbtn" type="submit">Submit </button>
     </label>
-  </form>
 
-  <ul id="editHighlightsList"></ul>
+    <div id="error" class="error"></div>
+  </form>
+  {{/if}}
+
+  <ul id="editHighlightsList">
+    {{#each highlights}}
+    <li>{{this}}</li>
+    {{/each}}
+  </ul>
+
 
 </main>

@@ -17,6 +17,11 @@ module.exports = {
   postviewMatch,
   getviewMatch,
   getPlayers,
+  getStats,
+  postStats,
+  getCommentary,
+  postCommentary,
+  editStats,
 };
 
 async function getCreateMatch(req, res, next) {
@@ -46,21 +51,21 @@ async function getPlayers(req, res, next) {
     const reqBody = req.body;
     const match_id = req.params.id;
     const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
-    const players = [];
+    let players = [];
+
     for (let i = 0; i < 11; i++) {
       players.push({
         team1: match.team1.players[i],
         team2: match.team2.players[i],
       });
     }
-    if (match) {
-      return res.render("matches/players", {
-        id: match_id,
-        team1Name: match.team1.name,
-        team2Name: match.team2.name,
-        players: players,
-      });
-    }
+
+    return res.render("matches/players", {
+      id: match_id,
+      team1Name: match.team1.name,
+      team2Name: match.team2.name,
+      players: players,
+    });
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
@@ -166,7 +171,28 @@ async function createMatch(req, res, next) {
 
 async function getHighlights(req, res, next) {
   try {
-    return res.render("matches/editScoreboard/editHighlights");
+    const match_id = req.params.id;
+    const loggedUserId = req.session.user.id;
+    const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
+    const highlights = match.highlights;
+
+    // if (match.userId == loggedUserId) {
+    //   return res.render("matches/editScoreboard/editHighlights", {
+    //     id: req.params.id,
+    //     highlights: highlights,
+    //   });
+    // } else {
+    //   return res.render("matches/viewScoreboard/viewHighlights", {
+    //     id: req.params.id,
+    //     highlights: highlights,
+    //   });
+    // }
+
+    return res.render("matches/editScoreboard/editHighlights", {
+      id: req.params.id,
+      highlights: highlights,
+      creator: loggedUserId == match.userId,
+    });
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
@@ -174,18 +200,67 @@ async function getHighlights(req, res, next) {
     return next(new ServerError(500, error.message));
   }
 }
+
+async function getCommentary(req, res, next) {
+  try {
+    const match_id = req.params.id;
+    const loggedUserId = req.session.user.id;
+    const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
+    const commentary = match.commentary;
+
+    if (match.userId == loggedUserId) {
+      return res.render("matches/editScoreboard/editCommentary", {
+        id: req.params.id,
+        commentary: commentary,
+      });
+    } else {
+      return res.render("matches/viewScoreboard/viewCommentary", {
+        id: req.params.id,
+        commentary: commentary,
+      });
+    }
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+
+async function postCommentary(req, res, next) {
+  try {
+    //update commentary array of match
+
+    const matchId = req.params.id;
+    const commentary = req.body.commentary;
+
+    const match = await Matches.updateOne(
+      { _id: ObjectId(matchId) },
+      { $push: { commentary: commentary } }
+    );
+
+    return res.send({ url: `/matches/${matchId}/commentary` });
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+
 async function postHighlights(req, res, next) {
   try {
     //update highlights array of match
-    const matchId = req.body.matchID;
 
-    const match = await Matches.findOneAndUpdate(
+    const matchId = req.params.id;
+    const highlight = req.body.highlight;
+
+    const match = await Matches.updateOne(
       { _id: ObjectId(matchId) },
-      { $push: { highlights: req.body.higlight } },
-      { new: true }
-    ).lean();
+      { $push: { highlights: highlight } }
+    );
 
-    return sendResponse(res, 200, match);
+    return res.send({ url: `/matches/${matchId}/highlights` });
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
@@ -221,16 +296,94 @@ async function postscorecard(req, res, next) {
     return next(new ServerError(500, error.message));
   }
 }
+async function getStats(req, res, next) {
+  // try {
+  //   return res.render("matches/editScoreboard/editStats", {
+  //     id: req.params.id,
+  //   });
+  // } catch (error) {
+  //   if (error instanceof ServerError) {
+  //     return next(error);
+  //   }
+  //   return next(new ServerError(500, error.message));
+  // }
 
-// async function postHighlights2(matchID, highlight) {
-//   const matchId = matchID;
-//   const highLight = highlight;
-//   //find match with id nd update highlights append new hightlight to array
-//   const match = await Matches.findOneAndUpdate(
-//     { _id: ObjectId(matchId) },
-//     { $push: { highlights: highLight } },
-//     { new: true }
-//   ).lean();
+  try {
+    return res.render("matches/viewScoreboard/viewStats", {
+      id: req.params.id,
 
-//   return sendResponse(res, 200, match);
-// }
+      creator: req.session.user.currentMatch,
+    });
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+async function postStats(req, res, next) {
+  try {
+    const matchId = req.params.id;
+
+    const team1 = req.body.team1;
+    const team2 = req.body.team2;
+
+    const match = await Matches.findOne({ _id: ObjectId(matchId) }).lean();
+
+    const team1stats = match.team1.stats;
+    const team2stats = match.team2.stats;
+
+    const team1newStats = {
+      goals: team1stats.goals + team1.goals,
+      fouls: team1stats.fouls + team1.fouls,
+      yellowCards: team1stats.yellowCards + team1.yellowCards,
+      redCards: team1stats.redCards + team1.redCards,
+      shots: team1stats.shots + team1.shots,
+      shotsOnTarget: team1stats.shotsOnTarget + team1.shotsOnTarget,
+      corners: team1stats.corners + team1.corners,
+      offsides: team1stats.offsides + team1.offsides,
+    };
+    const team2newStats = {
+      goals: team2stats.goals + team2.goals,
+      fouls: team2stats.fouls + team2.fouls,
+      yellowCards: team2stats.yellowCards + team2.yellowCards,
+      redCards: team2stats.redCards + team2.redCards,
+      shots: team2stats.shots + team2.shots,
+      shotsOnTarget: team2stats.shotsOnTarget + team2.shotsOnTarget,
+      corners: team2stats.corners + team2.corners,
+      offsides: team2stats.offsides + team2.offsides,
+    };
+
+    const match1 = await Matches.findOneAndUpdate(
+      { _id: ObjectId(matchId) },
+      { $set: { team1: { stats: team1newStats } } },
+      { new: true }
+    ).lean();
+
+    const match2 = await Matches.findOneAndUpdate(
+      { _id: ObjectId(matchId) },
+
+      { $set: { team2: { stats: team2newStats } } },
+      { new: true }
+    ).lean();
+
+    return res.send({ url: `/matches/getMatch/${matchId}` });
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
+async function editStats(req, res, next) {
+  try {
+    return res.render("matches/editScoreboard/editStats", {
+      id: req.params.id,
+    });
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
+}
