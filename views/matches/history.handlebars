@@ -1,7 +1,9 @@
 <div class="container">
     {{#each data}}
     <div class="row">
-        <a class="col" href="/matches/getMatch/{{this._id}}">{{this.name}}</a>
+        <a class="col" href="/matches/getMatch/{{this._id}}">
+            <h3>{{this.name}}</h3>
+        </a>
     </div>
     {{/each}}
 </div>
