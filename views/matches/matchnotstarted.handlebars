@@ -1,10 +1,6 @@
 <main class="main1">
 
 
-
-
-    <p class="header">Match not started yet</p>
-
     <ul class="main-nav">
 
         <a class="fields">{{team1Name}}</a>
@@ -15,11 +11,18 @@
 
     </ul>
 
-    <ul class="main-nav">
-        <a href="/matches/{{id}}/players">Players</a>
-
-    </ul>
 
 
+    <table class="table1">
+        <tr>
+            <th> {{team1Name}}</th>
+            <th>{{team2Name}}</th>
+        </tr>
+        {{#each players}} <tr>
+            <td>{{this.team1}}</td>
+            <td>{{this.team2}}</td>
+        </tr>
+        {{/each}}
+    </table>
 
 </main>

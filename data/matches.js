@@ -96,6 +96,16 @@ async function getviewMatch(req, res, next) {
     const reqBody = req.body;
     const match_id = req.params.id;
     const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
+    let players = [];
+
+    for (let i = 0; i < 11; i++) {
+      players.push({
+        team1: match.team1.players[i],
+        team2: match.team2.players[i],
+      });
+    }
+    //send team1 and team2 goals also
+
     if (match.isMatchStarted) {
       return res.render("matches/editScoreboard/editScoreboard", {
         id: match_id,
@@ -106,13 +116,14 @@ async function getviewMatch(req, res, next) {
         team2Goals: match.team2.stats.goals,
       });
     } else {
-      return res.render("matches/matchNotStarted", {
+      return res.render("matches/matchnotstarted", {
         id: match_id,
         team1Name: match.team1.name,
         team2Name: match.team2.name,
 
         team1Goals: match.team1.stats.goals,
         team2Goals: match.team2.stats.goals,
+        players: players,
       });
     }
   } catch (error) {
