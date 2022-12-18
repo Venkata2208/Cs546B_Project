@@ -26,6 +26,7 @@
     <li><a href="/matches/{{id}}/commentary">Commentary</a></li>
     <li><a href="/matches/{{id}}/highlights">Highlights</a></li>
   </ul>
+  {{#if creator}}
 
   <form id="highlightsForm" class="commentaryForm" onsubmit="editHighlights(event)">
     <option id="matchId" hidden="true">{{id}}</option>
@@ -37,6 +38,7 @@
 
     <div id="error" class="error"></div>
   </form>
+  {{/if}}
 
   <ul id="editHighlightsList">
     {{#each highlights}}
