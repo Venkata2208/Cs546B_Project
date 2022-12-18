@@ -95,11 +95,21 @@ async function postviewMatch(req, res, next) {
 
 async function getviewMatch(req, res, next) {
   try {
+    //isMatchStarted
     const reqBody = req.body;
     const match_id = req.params.id;
     const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
-    if (req.session.user.currentMatch) {
+    if (match.isMatchStarted) {
       return res.render("matches/editScoreboard/editScoreboard", {
+        id: match_id,
+        team1Name: match.team1.name,
+        team2Name: match.team2.name,
+
+        team1Goals: match.team1.stats.goals,
+        team2Goals: match.team2.stats.goals,
+      });
+    } else {
+      return res.render("matches/matchNotStarted", {
         id: match_id,
         team1Name: match.team1.name,
         team2Name: match.team2.name,
