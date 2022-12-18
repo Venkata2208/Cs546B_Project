@@ -1,41 +1,46 @@
 <main class="main1">
 
 
-  <ul class="main-nav">
-    <a class="fields"></a>
-    <a class="fields"></a>
-    <a class="fields"></a>
-    <a class="fields"></a>
-    <a class="fields"></a>
-    <a class="fields"></a>
-    <a class="fields"></a>
+   <ul class="main-nav">
+   
+    
 
-    <a class="fields">team1_name</a>
-    <div class="count" value="0" id="team1_goals"></div>
-    <a class="fields"></a>
-    <a class="fields"></a>
-    <div class="count" value="0" id="team2_goals"></div>
-    <a class="fields">team2_name</a>
+    <a class="fields">{{team1Name}}</a>
+        <div style=" width:auto"   class="count" value="0" id="team1_goals">{{team1Goals}}</div>
+        
+        <div class="count" value="0" id="team2_goals">{{team2Goals}}</div>
+        <a class="fields">{{team2Name}}</a>
 
   </ul>
 
   <ul class="main-nav">
-    <a href="/persondetails/{{id}}">{{firstName}} {{lastName}}</a>
-    <li><a href="/matches/{{id}}/players">Players</a></li>
-    <li><a href="/matches/{{id}}/stats">Stats</a></li>
-    <li><a href="/matches/{{id}}/commentary">Commentary</a></li>
-    <li><a href="/matches/{{id}}/highlights">Highlights</a></li>
+    <a href="/matches/{{id}}/players">Players</a>
+    <a href="/matches/{{id}}/stats">Stats</a>
+    <a href="/matches/{{id}}/commentary">Commentary</a>
+    <a href="/matches/{{id}}/highlights">Highlights</a>
   </ul>
+  
+  {{#if creator}}
 
   <form id="highlightsForm" class="commentaryForm" onsubmit="editHighlights(event)">
     <option id="matchId" hidden="true">{{id}}</option>
-    <label id="highlights-form-label" class="commentary-form-label">
+    <label id="highlights-form-label" class="highlights-form-label">
       {{!-- <input value="" /> --}}
-      <input class="commentary-form-input" name="input" type="text" id="commentary-form-input" size="60" />
-      <button class="commentarybtn" type="submit">Submit </button>
+      <input class="highlights-form-input" name="input" type="text" id="highlights-form-input" size="60" />
+      <button class="highlightsbtn" type="submit">Submit </button>
     </label>
-  </form>
 
-  <ul id="editHighlightsList"></ul>
+    <div style="color: rgb(246, 249, 247); 
+ background-color: rgba(12, 12, 12, 0);" id="error" class="error"></div>
+  </form>
+  {{/if}}
+
+  <ul id="editHighlightsList">
+    {{#each highlights}}
+    <li style="color: rgb(246, 249, 247); 
+ background-color: rgba(12, 12, 12, 0);">{{this}}</li>
+    {{/each}}
+  </ul>
+
 
 </main>

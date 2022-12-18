@@ -27,7 +27,12 @@ main {
 header {
   border-bottom: 1px solid #afafaf;
 }
-
+.container .div
+{
+  text-align: center;
+  color: #e0e0e0;
+  border: #6a64f1;
+}
 h1,
 h2,
 h3,
@@ -68,6 +73,22 @@ p {
   color: rgb(36, 3, 3);
 }
 
+.text-center_text-lg-start .rounded-t-5 {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+@media (min-width: 992px) {
+    .rounded-tr-lg-0 {
+        border-top-right-radius: 0;
+    }
+
+    .rounded-bl-lg-5 {
+        border-bottom-left-radius: 0.5rem;
+    }
+}
+
+
 .error {
   color: #ff0000;
 }
@@ -80,7 +101,11 @@ p {
   position: relative;
   width: 50%;
 }
-
+.container .h1
+{
+  text-align: center;
+  color: #e0e0e0;
+}
 .container .btn1 {
   position: fixed;
   top: 50%;
@@ -110,7 +135,16 @@ p {
   cursor: pointer;
   border-radius: 5px;
 }
-
+.container .btn3 {
+  
+  background-color: rgb(1, 74, 16);
+  color: white;
+  font-size: 16px;
+  padding: 20px 48px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
 .form1 .label {
   position: fixed;
   top: 40%;
@@ -177,13 +211,14 @@ p {
 }
 
 .commentarybtn {
+  color: rgb(246, 249, 247); 
+  background-color: rgba(12, 12, 12, 0);
   text-align: center;
   font-size: 16px;
   border-radius: 6px;
   padding: 14px 32px;
   border: none;
   font-weight: 600;
-  background-color: #0a9518;
   color: white;
   cursor: pointer;
 }
@@ -212,18 +247,25 @@ td {
 }
 
 .statsForm {
-  background-color: rgb(91, 187, 107);
+ color: rgb(246, 249, 247); 
+ background-color: rgba(12, 12, 12, 0);
 
-  padding: 40px 208px;
+  padding: 20px 248px;
+}
+.statsForm .table2
+{
+  color: rgb(246, 249, 247); 
+ background-color: rgba(12, 12, 12, 0);
 }
 .statsForm .class1 {
   text-align: center;
 }
 .statsForm .fields {
-  text-align: center;
-  height: 20px;
-  width: 30%;
-  display: inline-block;
+  text-align:left;
+  height: 30px;
+  width: 60%;
+  
+  
 }
 .statsForm .btn3 {
   text-align: center;
@@ -316,4 +358,22 @@ td {
     flex-direction: row;
     justify-content: space-evenly;
   }
+}
+
+.singup
+{
+  display:list-item;
+}
+.singupbtn
+{
+
+  margin-top: 1%;  
+    background-color: rgb(1, 74, 16);
+    color: white;
+    font-size: 16px;
+    padding: 10px 28px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  
 }

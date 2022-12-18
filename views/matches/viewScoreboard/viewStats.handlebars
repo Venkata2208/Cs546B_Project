@@ -2,91 +2,92 @@
 
 
   <ul class="main-nav">
-    <a class="fields"></a>
-    <a class="fields"></a>
-    <a class="fields"></a>
-    <a class="fields"></a>
-    <a class="fields"></a>
-    <a class="fields"></a>
-    <a class="fields"></a>
 
-    <a class="fields">team1_name</a>
-    <div class="count" value="0" id="team1_goals"></div>
-    <a class="fields"></a>
-    <a class="fields"></a>
-    <div class="count" value="0" id="team2_goals"></div>
-    <a class="fields">team2_name</a>
+
+    <a class="fields">{{team1Name}}</a>
+    <div style=" width:auto" class="count" value="0" id="team1_goals">{{team1Goals}}</div>
+
+    <div class="count" value="0" id="team2_goals">{{team2Goals}}</div>
+    <a class="fields">{{team2Name}}</a>
 
   </ul>
 
   <ul class="main-nav">
-    <li><a href="/matches/{{id}}/players">Players</a></li>
-    <li><a href="/matches/{{id}}/stats">Stats</a></li>
-    <li><a href="/matches/{{id}}/commentary">Commentary</a></li>
-    <li><a href="/matches/{{id}}/highlights">Highlights</a></li>
+    <a href="/matches/{{id}}/players">Players</a>
+    <a href="/matches/{{id}}/stats">Stats</a>
+    <a href="/matches/{{id}}/commentary">Commentary</a>
+    <a href="/matches/{{id}}/highlights">Highlights</a>
+
   </ul>
+
+  {{#if creator}}
+  <a style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" href="/matches/{{id}}/editStats">Edit</a>
+  {{/if}}
 
   <table class="table1">
     <tr>
 
-      <th id="team1_name">Team1 </th>
+      <th id="team1_name">{{team1Name}} </th>
       <th>Fields</th>
-      <th id="team2_name">Team2</th>
+      <th id="team2_name">{{team2Name}}</th>
     </tr>
     <tr>
 
-      <td id="view_team1_goals">2</td>
+    <tr>
+
+      <td id="view_team1_goals">{{team1stats.goals}}</td>
       <td>Goals</td>
-      <td id="view_team2_goals">3</td>
+      <td id="view_team2_goals">{{team2stats.goals}}</td>
     </tr>
     <tr>
 
-      <td id="view_team1_shots">2</td>
-      <td>shots</td>
-      <td id="view_team2_shots">3</td>
+      <td id="view_team1_shots">{{team1stats.shots}}</td>
+      <td>Shots</td>
+      <td id="view_team2_shots">{{team2stats.shots}}</td>
     </tr>
     <tr>
 
-      <td id="view_team1_shotsontarget">2</td>
-      <td>shots on target</td>
-      <td id="view_team2_shotsontarget">3</td>
+      <td id="view_team1_shotsontarget">{{team1stats.shotsontarget}}</td>
+      <td>Shots on target</td>
+      <td id="view_team2_shotsontarget">{{team2stats.shotsontarget}}</td>
     </tr>
     <tr>
 
-      <td id="view_team1_fouls">2</td>
-      <td>fouls</td>
-      <td id="view_team2_fouls">3</td>
+      <td id="view_team1_fouls">{{team1stats.fouls}}</td>
+      <td>Fouls</td>
+      <td id="view_team2_fouls">{{team2stats.fouls}}</td>
     </tr>
     <tr>
 
-      <td id="view_team1_passes">2</td>
-      <td>passes</td>
-      <td id="view_team2_passes">3</td>
+      <td id="view_team1_passes">{{team1stats.passes}}</td>
+      <td>Passes</td>
+      <td id="view_team2_passes">{{team2stats.passes}}</td>
     </tr>
     <tr>
 
-      <td id="view_team1_yellow">2</td>
-      <td>yellow cards</td>
-      <td id="view_team2_yellow">3</td>
+      <td id="view_team1_yellow">{{team1stats.yellowcards}}</td>
+      <td>Yellow cards</td>
+      <td id="view_team2_yellow">{{team2stats.yellowcards}}</td>
     </tr>
     <tr>
 
-      <td id="view_team1_red">2</td>
+      <td id="view_team1_red">{{team1stats.redcards}}</td>
       <td>Red cards</td>
-      <td id="view_team2_red">3</td>
+      <td id="view_team2_red">{{team2stats.redcards}}</td>
     </tr>
     <tr>
 
-      <td id="view_team1_offsides">2</td>
-      <td>offsides</td>
-      <td id="view_team2_offsides">3</td>
+      <td id="view_team1_offsides">{{team1stats.offsides}}</td>
+      <td>Off sides</td>
+      <td id="view_team2_offsides">{{team2stats.offsides}}</td>
     </tr>
     <tr>
 
-      <td id="view_team1_corners">2</td>
-      <td>corners</td>
-      <td id="view_team2_corners">3</td>
+      <td id="view_team1_corners">{{team1stats.corners}}</td>
+      <td>Corners</td>
+      <td id="view_team2_corners">{{team2stats.corners}}</td>
     </tr>
+
   </table>
 
 </main>
