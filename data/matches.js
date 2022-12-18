@@ -344,6 +344,8 @@ async function getStats(req, res, next) {
 
       team1Goals: match.team1.stats.goals,
       team2Goals: match.team2.stats.goals,
+      team1stats: match.team1.stats,
+      team2stats: match.team2.stats,
     });
   } catch (error) {
     if (error instanceof ServerError) {
