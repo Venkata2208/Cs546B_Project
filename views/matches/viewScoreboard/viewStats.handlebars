@@ -2,13 +2,13 @@
 
 
   <ul class="main-nav">
-    
+
 
     <a class="fields">{{team1Name}}</a>
-        <div style=" width:auto"   class="count" value="0" id="team1_goals">{{team1Goals}}</div>
-        
-        <div class="count" value="0" id="team2_goals">{{team2Goals}}</div>
-        <a class="fields">{{team2Name}}</a>
+    <div style=" width:auto" class="count" value="0" id="team1_goals">{{team1Goals}}</div>
+
+    <div class="count" value="0" id="team2_goals">{{team2Goals}}</div>
+    <a class="fields">{{team2Name}}</a>
 
   </ul>
 
@@ -17,12 +17,12 @@
     <a href="/matches/{{id}}/stats">Stats</a>
     <a href="/matches/{{id}}/commentary">Commentary</a>
     <a href="/matches/{{id}}/highlights">Highlights</a>
-    
+
   </ul>
 
   {{#if creator}}
-    <a style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" href="/matches/{{id}}/editStats">Edit</a>
-    {{/if}}
+  <a style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" href="/matches/{{id}}/editStats">Edit</a>
+  {{/if}}
 
   <table class="table1">
     <tr>
@@ -42,31 +42,31 @@
     <tr>
 
       <td id="view_team1_shots">{{team1stats.shots}}</td>
-      <td>shots</td>
+      <td>Shots</td>
       <td id="view_team2_shots">{{team2stats.shots}}</td>
     </tr>
     <tr>
 
       <td id="view_team1_shotsontarget">{{team1stats.shotsontarget}}</td>
-      <td>shots on target</td>
+      <td>Shots on target</td>
       <td id="view_team2_shotsontarget">{{team2stats.shotsontarget}}</td>
     </tr>
     <tr>
 
       <td id="view_team1_fouls">{{team1stats.fouls}}</td>
-      <td>fouls</td>
+      <td>Fouls</td>
       <td id="view_team2_fouls">{{team2stats.fouls}}</td>
     </tr>
     <tr>
 
       <td id="view_team1_passes">{{team1stats.passes}}</td>
-      <td>passes</td>
+      <td>Passes</td>
       <td id="view_team2_passes">{{team2stats.passes}}</td>
     </tr>
     <tr>
 
-      <td id="view_team1_yellow">{{team1stats.yellocards}}</td>
-      <td>yellow cards</td>
+      <td id="view_team1_yellow">{{team1stats.yellowcards}}</td>
+      <td>Yellow cards</td>
       <td id="view_team2_yellow">{{team2stats.yellowcards}}</td>
     </tr>
     <tr>
@@ -77,14 +77,14 @@
     </tr>
     <tr>
 
-      <td id="view_team1_offsides">{{team1stats.offisdes}}</td>
-      <td>offsides</td>
+      <td id="view_team1_offsides">{{team1stats.offsides}}</td>
+      <td>Off sides</td>
       <td id="view_team2_offsides">{{team2stats.offsides}}</td>
     </tr>
     <tr>
 
       <td id="view_team1_corners">{{team1stats.corners}}</td>
-      <td>corners</td>
+      <td>Corners</td>
       <td id="view_team2_corners">{{team2stats.corners}}</td>
     </tr>
 

@@ -11,9 +11,11 @@ function getReqBody(body) {
         }
         return data;
     } else if (typeof body == 'number') {
-        return parseInt(xss(body));
+        return body;
     } else if (typeof body == 'boolean') {
-        return (xss(body) == 'true');
+        return body;
+    } else if (!isNaN(body) && !isNaN(parseFloat(body))) {
+        return parseInt(xss(body));
     }
     return xss(body);
 }
