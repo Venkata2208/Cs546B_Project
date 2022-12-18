@@ -212,9 +212,15 @@ td {
 }
 
 .statsForm {
-  background-color: rgb(91, 187, 107);
+ color: rgb(246, 249, 247); 
+ background-color: rgba(12, 12, 12, 0);
 
   padding: 20px 248px;
+}
+.statsForm .table2
+{
+  color: rgb(246, 249, 247); 
+ background-color: rgba(12, 12, 12, 0);
 }
 .statsForm .class1 {
   text-align: center;
