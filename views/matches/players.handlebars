@@ -1,0 +1,41 @@
+<main class="main1">
+
+
+    <ul class="main-nav">
+        <a class="fields"></a>
+        <a class="fields"></a>
+        <a class="fields"></a>
+        <a class="fields"></a>
+        <a class="fields"></a>
+        <a class="fields"></a>
+        <a class="fields"></a>
+
+        <a class="fields">team1_name</a>
+        <div class="count" value="0" id="team1_goals"></div>
+        <a class="fields"></a>
+        <a class="fields"></a>
+        <div class="count" value="0" id="team2_goals"></div>
+        <a class="fields">team2_name</a>
+
+    </ul>
+
+    <ul class="main-nav">
+        <li><a href="/matches/{{id}}/players">Players</a></li>
+        <li><a href="/matches/{{id}}/stats">Stats</a></li>
+        <li><a href="/matches/{{id}}/commentary">Commentary</a></li>
+        <li><a href="/matches/{{id}}/highlights">Highlights</a></li>
+    </ul>
+
+    <table class="table1">
+        <tr>
+            <th> {{team1Name}}</th>
+            <th>{{team2Name}}</th>
+        </tr>
+        {{#each players}} <tr>
+            <td>{{this.team1}}</td>
+            <td>{{this.team2}}</td>
+        </tr>
+        {{/each}}
+    </table>
+
+</main>

@@ -1,7 +1,7 @@
-<ul>
+<div class="container">
     {{#each data}}
     <div class="row">
-        <li>{{this.name}}</li>
+        <a class="col" href="/matches/getMatch/{{this._id}}">{{this.name}}</a>
     </div>
     {{/each}}
-</ul>
+</div>
