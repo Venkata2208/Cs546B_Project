@@ -175,17 +175,23 @@ async function getHighlights(req, res, next) {
     const match = await Matches.findOne({ _id: ObjectId(match_id) }).lean();
     const highlights = match.highlights;
 
-    if (match.userId == loggedUserId) {
-      return res.render("matches/editScoreboard/editHighlights", {
-        id: req.params.id,
-        highlights: highlights,
-      });
-    } else {
-      return res.render("matches/viewScoreboard/viewHighlights", {
-        id: req.params.id,
-        highlights: highlights,
-      });
-    }
+    // if (match.userId == loggedUserId) {
+    //   return res.render("matches/editScoreboard/editHighlights", {
+    //     id: req.params.id,
+    //     highlights: highlights,
+    //   });
+    // } else {
+    //   return res.render("matches/viewScoreboard/viewHighlights", {
+    //     id: req.params.id,
+    //     highlights: highlights,
+    //   });
+    // }
+
+    return res.render("matches/editScoreboard/editHighlights", {
+      id: req.params.id,
+      highlights: highlights,
+      creator: loggedUserId == match.userId,
+    });
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
