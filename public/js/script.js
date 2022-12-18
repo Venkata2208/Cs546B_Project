@@ -301,7 +301,6 @@ async function editHighlights(event) {
     }
 
     let data = {
-      id: id,
       highlight: highlight,
     };
 
@@ -335,7 +334,6 @@ async function editcommentary(event) {
     }
 
     let data = {
-      id: id,
       commentary: commentary,
     };
 

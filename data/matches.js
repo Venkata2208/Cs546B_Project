@@ -416,7 +416,7 @@ async function postCommentary(req, res, next) {
 
     const match = await Matches.updateOne(
       { _id: matchId },
-      { $push: { commentary: commentary } }
+      { $push: { commentary: { time: moment().unix(), comment: commentary } } }
     );
 
     return res.send({ url: `/matches/${matchId}/commentary` });

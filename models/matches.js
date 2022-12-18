@@ -91,7 +91,7 @@ const schema = new mongoose.Schema(
       required: true,
     },
     commentary: {
-      type: [commentSchema],
+      type: Array,
       default: [],
     },
     highlights: {
