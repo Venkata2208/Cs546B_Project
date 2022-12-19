@@ -299,7 +299,10 @@ async function editHighlights(event) {
     if (highlight.trim() === "") {
       throw "Highlight cannot be empty";
     }
-
+    if(highlight.length<3)
+    {
+      throw "Highlight cannot be less than three characters";
+    }
     let data = {
       highlight: highlight,
     };
@@ -332,7 +335,10 @@ async function editcommentary(event) {
     if (commentary.trim() === "") {
       throw "Commentary cannot be empty";
     }
-
+    if(commentary.length<3)
+    {
+      throw "commentary cannot be less than three characters";
+    }
     let data = {
       commentary: commentary,
     };

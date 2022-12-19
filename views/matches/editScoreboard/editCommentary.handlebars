@@ -22,21 +22,24 @@
 
   <form id="commentary" class="commentary" onsubmit="editcommentary(event)">
     <option id="matchId" hidden="true">{{id}}</option>
-    <label id="commentary-form-label" class="commentary-form-label">
+    <label for="commentary-form-input" class="commentary-form-label"></label>
       {{!-- <input value="" /> --}}
-      <input class="commentary-form-input" name="input" type="text" id="commentary-form-input" size="60" />
+      <input class="commentary-form-input" name="input" type="text" id="commentary-form-input" size="60" >
       <button class="commentarybtn" type="submit">Submit </button>
-    </label>
+    
 
     <div style="color: rgb(246, 249, 247); 
  background-color: rgba(12, 12, 12, 0);" id="error" class="error"></div>
   </form>
 
-  <ul id="editCommentaryList">
-    {{#each commentary}}
-    <h3>{{this.comment}}</h3>
-    <p>{{this.time}}</p>
-    {{/each}}
+  <ul style="list-style-type: none; color: rgb(246, 249, 247); 
+ background-color: rgba(12, 12, 12, 0);" id="editCommentaryList">
+    <li>{{#each commentary}}</li>
+    <li><div style="color: rgb(246, 249, 247); 
+ background-color: rgba(12, 12, 12, 0);">{{this.comment}}</div></li>
+    <li><p style="color: rgb(246, 249, 247); 
+ background-color: rgba(12, 12, 12, 0);">{{this.time}}</p></li>
+    <li>{{/each}}</li>
   </ul>
 
 </main>

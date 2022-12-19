@@ -19,11 +19,12 @@
   </ul>
 
 
-  <ul id="viewCommentaryList">
-    {{#each commentary}}
-    <h3>{{this.comment}}</h3>
-    <p>{{this.time}}</p>
-    {{/each}}
+
+  <ul style="list-style-type: none;" id="editCommentaryList">
+    <li>{{#each commentary}}</li>
+    <li><h3>{{this.comment}}</h3></li>
+    <li><p>{{this.time}}</p></li>
+    <li>{{/each}}</li>
   </ul>
 
 </main>

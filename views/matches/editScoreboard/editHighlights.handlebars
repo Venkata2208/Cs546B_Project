@@ -22,11 +22,10 @@
 
   <form id="highlightsForm" class="commentaryForm" onsubmit="editHighlights(event)">
     <option id="matchId" hidden="true">{{id}}</option>
-    <label id="highlights-form-label" class="highlights-form-label">
-      {{!-- <input value="" /> --}}
-      <input class="highlights-form-input" name="input" type="text" id="highlights-form-input" size="60" />
+    <label for="highlights-form-input" class="highlights-form-label"></label>
+      <input class="highlights-form-input" name="input" type="text" id="highlights-form-input" size="60" >
       <button class="highlightsbtn" type="submit">Submit </button>
-    </label>
+    
 
     <div style="color: rgb(246, 249, 247); 
  background-color: rgba(12, 12, 12, 0);" id="error" class="error"></div>
