@@ -16,3 +16,4 @@ Steps to run SBOARD:
 1. In terminal install libraries with "npm install" command
 2. Run "npm run seed" to populate data
 3. After installation run the application using "npm start"
+
