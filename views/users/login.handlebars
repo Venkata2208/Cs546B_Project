@@ -1,6 +1,6 @@
 <!-- Section: Design Block -->
 <section class=" text-center text-lg-start" style="background:transparent;">
-    
+
     <div class="card mb-3" style="background:transparent;">
         <div class="row g-0 d-flex align-items-center">
             <div class="col-lg-8">
@@ -9,13 +9,15 @@
                     <form id="login-form" action="POST">
                         <!-- Email input -->
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="login-username" style="color: rgb(0, 129, 39); background-color: rgba(12, 12, 12, 0);">Username</label>
+                            <label class="form-label" for="login-username"
+                                style="color: rgb(0, 129, 39); background-color: rgba(12, 12, 12, 0);">Username</label>
                             <input type="text" id="login-username" class="form-control">
                         </div>
 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="login-password" style="color: rgb(0, 129, 39); background-color: rgba(12, 12, 12, 0);">Password</label>
+                            <label class="form-label" for="login-password"
+                                style="color: rgb(0, 129, 39); background-color: rgba(12, 12, 12, 0);">Password</label>
                             <input type="password" id="login-password" class="form-control">
                         </div>
 
@@ -29,6 +31,8 @@
     </div>
 </section>
 
-<p style="text-color:" id="server-error"></p>
+
+<div id="error" class="error"></div>
+<p id="server-error" style="color:red"></p>
 <a class="singupbtn" href="/users/signup">Register here!</a>
-    <!-- Section: Design Block -->
+<!-- Section: Design Block -->

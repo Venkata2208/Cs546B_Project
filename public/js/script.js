@@ -242,9 +242,10 @@ async function scheduleMatch(event) {
       throw "Duration should be a number";
     }
 
-    if (!startTime) throw 'Start time is mandatory';
+    if (!startTime) throw "Start time is mandatory";
     startTime = Math.floor(Date.parse(startTime) / 1000);
-    if (startTime < Math.floor(new Date().getTime() / 1000)) throw 'Start time must be in future';
+    if (startTime < Math.floor(new Date().getTime() / 1000))
+      throw "Start time must be in future";
 
     let data = {
       name: matchName,
@@ -253,7 +254,6 @@ async function scheduleMatch(event) {
       team1: team1,
       team2: team2,
     };
-
 
     data = JSON.stringify(data);
 
@@ -393,7 +393,8 @@ async function editstats(event) {
       yellowcards: document.getElementById("edit_team1_yellowcards").value || 0,
       redcards: document.getElementById("edit_team1_redcards").value || 0,
       shots: document.getElementById("edit_team1_shots").value || 0,
-      shotsontarget: document.getElementById("edit_team1_shotsontarget").value || 0,
+      shotsontarget:
+        document.getElementById("edit_team1_shotsontarget").value || 0,
       corners: document.getElementById("edit_team1_corners").value || 0,
       offsides: document.getElementById("edit_team1_offsides").value || 0,
     };
@@ -405,7 +406,8 @@ async function editstats(event) {
       yellowcards: document.getElementById("edit_team2_yellowcards").value || 0,
       redcards: document.getElementById("edit_team2_redcards").value || 0,
       shots: document.getElementById("edit_team2_shots").value || 0,
-      shotsontarget: document.getElementById("edit_team2_shotsontarget").value || 0,
+      shotsontarget:
+        document.getElementById("edit_team2_shotsontarget").value || 0,
       corners: document.getElementById("edit_team2_corners").value || 0,
       offsides: document.getElementById("edit_team2_offsides").value || 0,
     };
@@ -415,12 +417,11 @@ async function editstats(event) {
       if (value > 0) isValid = true;
     });
 
-
     Object.values(team2).map((value) => {
       if (value > 0) isValid = true;
     });
 
-    if (!isValid) throw 'Atleast 1 input must be greater than 0';
+    if (!isValid) throw "Atleast 1 input must be greater than 0";
 
     let data = {
       team1: team1,
@@ -478,4 +479,37 @@ function checkPassword(password) {
 
   if (/^[a-zA-Z0-9]+$/.test(password))
     throw "password must have at least one special character";
+}
+
+async function edituser(event) {
+  try {
+    event.preventDefault();
+
+    const firstname = document.getElementById("firstName").value;
+    const lastname = document.getElementById("lastName").value;
+    const password = document.getElementById("password").value;
+
+    let data = {
+      firstName: firstname,
+      lastName: lastname,
+      password: password,
+    };
+
+    data = JSON.stringify(data);
+
+    let response = await fetch(`/users/edituser`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: data,
+    });
+    response = await response.json();
+
+    window.location.href = `/users/viewuser`;
+  } catch (error) {
+    console.log(error);
+    document.getElementById("error").innerHTML = error;
+    document.getElementById("error").style.display = "block";
+  }
 }

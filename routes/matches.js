@@ -1,4 +1,5 @@
 const matches = require("../data/matches");
+
 const { isAuthorized } = require("../middlewares/auth");
 
 const router = require("express").Router();

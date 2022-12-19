@@ -3,7 +3,7 @@ const validator = require("../validators/matches");
 const ServerError = require("../shared/server-error");
 const sendResponse = require("../shared/sendResponse");
 const moment = require("moment");
-const xss = require('../shared/xssHelper');
+const xss = require("../shared/xssHelper");
 
 module.exports = {
   getCreateMatch,
@@ -183,7 +183,7 @@ async function getStats(req, res, next) {
     const matchId = req.params.id;
 
     if (!req.session.user.isMatchStarted) {
-      return res.redirect(`/matches/${matchId}`)
+      return res.redirect(`/matches/${matchId}`);
     }
 
     const match = await Matches.findOne({ _id: matchId }).lean();
@@ -211,15 +211,14 @@ async function getEditStats(req, res, next) {
     const matchId = req.params.id;
 
     if (!req.session.user.currentMatch) {
-      throw ServerError(403, 'User is not authorized to edit this match');
+      throw new ServerError(401, "User is not authorized to edit this match");
     }
 
     if (!req.session.user.isMatchStarted) {
-      return res.redirect(`/matches/${matchId}`)
+      return res.redirect(`/matches/${matchId}`);
     }
 
     const match = await Matches.findOne({ _id: matchId });
-
 
     return res.render("matches/editScoreboard/editStats", {
       id: req.params.id,
@@ -228,7 +227,6 @@ async function getEditStats(req, res, next) {
       team1Goals: match.team1.stats.goals,
       team2Goals: match.team2.stats.goals,
     });
-
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
@@ -242,9 +240,8 @@ async function postStats(req, res, next) {
     const matchId = req.params.id;
     const reqBody = xss(req.body);
 
-
     if (!req.session.user.currentMatch) {
-      throw ServerError(403, 'User is not authorized to edit this match');
+      throw ServerError(403, "User is not authorized to edit this match");
     }
 
     const { error } = validator.validatePostStats(reqBody);
@@ -303,7 +300,7 @@ async function getCommentary(req, res, next) {
     const matchId = req.params.id;
 
     if (!req.session.user.isMatchStarted) {
-      return res.redirect(`/matches/${matchId}`)
+      return res.redirect(`/matches/${matchId}`);
     }
 
     const match = await Matches.findOne({ _id: matchId }).lean();
@@ -347,14 +344,18 @@ async function postCommentary(req, res, next) {
     }
 
     if (!req.session.user.currentMatch) {
-      throw ServerError(403, 'User is not authorized to edit this match');
+      throw ServerError(403, "User is not authorized to edit this match");
     }
 
     const commentary = reqBody.commentary;
 
     const match = await Matches.updateOne(
       { _id: matchId },
-      { $push: { commentary: { time: moment().toLocaleString(), comment: commentary } } }
+      {
+        $push: {
+          commentary: { time: moment().toLocaleString(), comment: commentary },
+        },
+      }
     );
 
     return res.send({ url: `/matches/${matchId}/commentary` });
@@ -371,7 +372,7 @@ async function getHighlights(req, res, next) {
     const matchId = req.params.id;
 
     if (!req.session.user.isMatchStarted) {
-      return res.redirect(`/matches/${matchId}`)
+      return res.redirect(`/matches/${matchId}`);
     }
 
     const match = await Matches.findOne({ _id: matchId }).lean();
@@ -401,7 +402,7 @@ async function postHighlights(req, res, next) {
     const reqBody = xss(req.body);
 
     if (!req.session.user.currentMatch) {
-      throw ServerError(403, 'User is not authorized to edit this match');
+      throw ServerError(403, "User is not authorized to edit this match");
     }
 
     const { error } = validator.validatePostHighlights(reqBody);
