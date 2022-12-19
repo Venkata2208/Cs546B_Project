@@ -29,7 +29,7 @@ async function isAuthorized(req, res, next) {
 
       if (!isObjectId(id)) throw new ServerError(400, "Invalid match id");
 
-      const match = await Matches.findOne({ _id: id }, { userId: 1 });
+      const match = await Matches.findOne({ _id: id }).lean();
 
       if (!match) {
         throw new ServerError(400, "Match does not exist with given Id");

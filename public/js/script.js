@@ -301,7 +301,6 @@ async function editHighlights(event) {
     }
 
     let data = {
-      id: id,
       highlight: highlight,
     };
 
@@ -335,7 +334,6 @@ async function editcommentary(event) {
     }
 
     let data = {
-      id: id,
       commentary: commentary,
     };
 
@@ -384,6 +382,7 @@ async function editstats(event) {
     const matchid = document.getElementById("matchId").value;
     const team1 = {
       goals: document.getElementById("edit_team1_goals").value || 0,
+      passes: document.getElementById("edit_team1_passes").value || 0,
       fouls: document.getElementById("edit_team1_fouls").value || 0,
       yellowcards: document.getElementById("edit_team1_yellowcards").value || 0,
       redcards: document.getElementById("edit_team1_redcards").value || 0,
@@ -395,6 +394,7 @@ async function editstats(event) {
 
     const team2 = {
       goals: document.getElementById("edit_team2_goals").value || 0,
+      passes: document.getElementById("edit_team2_passes").value || 0,
       fouls: document.getElementById("edit_team2_fouls").value || 0,
       yellowcards: document.getElementById("edit_team2_yellowcards").value || 0,
       redcards: document.getElementById("edit_team2_redcards").value || 0,
