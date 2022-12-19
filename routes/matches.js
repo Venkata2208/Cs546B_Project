@@ -18,19 +18,19 @@ router.get("/history", matches.getHistory);
 router.get("/:id", isAuthorized, matches.getviewMatch);
 
 // Get players
-router.get("/:id/players", matches.getPlayers);
+router.get("/:id/players", isAuthorized, matches.getPlayers);
 
 // Stats
 router.get("/:id/stats", isAuthorized, matches.getStats);
 router.get("/:id/editStats", isAuthorized, matches.getEditStats);
-router.post("/:id/stats", matches.postStats);
+router.post("/:id/stats", isAuthorized, matches.postStats);
 
 // Commentary
-router.get("/:id/commentary", matches.getCommentary);
-router.post("/:id/commentary", matches.postCommentary);
+router.get("/:id/commentary", isAuthorized, matches.getCommentary);
+router.post("/:id/commentary", isAuthorized, matches.postCommentary);
 
 // Highlights
 router.get("/:id/highlights", isAuthorized, matches.getHighlights);
-router.post("/:id/highlights", matches.postHighlights);
+router.post("/:id/highlights", isAuthorized, matches.postHighlights);
 
 module.exports = router;

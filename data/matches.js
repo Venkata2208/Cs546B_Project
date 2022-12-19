@@ -110,8 +110,8 @@ async function getHistory(req, res, next) {
 
 async function getviewMatch(req, res, next) {
   try {
-    const match_id = req.params.id;
-    const match = await Matches.findOne({ _id: match_id }).lean();
+    const matchId = req.params.id;
+    const match = await Matches.findOne({ _id: matchId }).lean();
     let players = [];
 
     for (let i = 0; i < 11; i++) {
@@ -124,7 +124,7 @@ async function getviewMatch(req, res, next) {
     const startTime = new Date(match.startTime * 1000).toDateString();
     if (req.session.user.isMatchStarted) {
       return res.render("matches/editScoreboard/editScoreboard", {
-        id: match_id,
+        id: matchId,
         team1Name: match.team1.name,
         team2Name: match.team2.name,
         team1Goals: match.team1.stats.goals,
@@ -132,7 +132,7 @@ async function getviewMatch(req, res, next) {
       });
     } else {
       return res.render("matches/matchnotstarted", {
-        id: match_id,
+        id: matchId,
         startTime: startTime,
         team1Name: match.team1.name,
         team2Name: match.team2.name,
@@ -151,8 +151,8 @@ async function getviewMatch(req, res, next) {
 
 async function getPlayers(req, res, next) {
   try {
-    const match_id = req.params.id;
-    const match = await Matches.findOne({ _id: match_id }).lean();
+    const matchId = req.params.id;
+    const match = await Matches.findOne({ _id: matchId }).lean();
     let players = [];
 
     for (let i = 0; i < 11; i++) {
@@ -163,7 +163,7 @@ async function getPlayers(req, res, next) {
     }
 
     return res.render("matches/players", {
-      id: match_id,
+      id: matchId,
       team1Name: match.team1.name,
       team2Name: match.team2.name,
       team1Goals: match.team1.stats.goals,
@@ -181,7 +181,13 @@ async function getPlayers(req, res, next) {
 async function getStats(req, res, next) {
   try {
     const matchId = req.params.id;
+
+    if (!req.session.user.isMatchStarted) {
+      return res.redirect(`/matches/${matchId}`)
+    }
+
     const match = await Matches.findOne({ _id: matchId }).lean();
+
     return res.render("matches/viewScoreboard/viewStats", {
       id: req.params.id,
       creator: req.session.user.currentMatch,
@@ -204,7 +210,16 @@ async function getEditStats(req, res, next) {
   try {
     const matchId = req.params.id;
 
+    if (!req.session.user.currentMatch) {
+      throw ServerError(403, 'User is not authorized to edit this match');
+    }
+
+    if (!req.session.user.isMatchStarted) {
+      return res.redirect(`/matches/${matchId}`)
+    }
+
     const match = await Matches.findOne({ _id: matchId });
+
 
     return res.render("matches/editScoreboard/editStats", {
       id: req.params.id,
@@ -213,6 +228,7 @@ async function getEditStats(req, res, next) {
       team1Goals: match.team1.stats.goals,
       team2Goals: match.team2.stats.goals,
     });
+
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
@@ -225,6 +241,11 @@ async function postStats(req, res, next) {
   try {
     const matchId = req.params.id;
     const reqBody = xss(req.body);
+
+
+    if (!req.session.user.currentMatch) {
+      throw ServerError(403, 'User is not authorized to edit this match');
+    }
 
     const { error } = validator.validatePostStats(reqBody);
     if (error) {
@@ -279,9 +300,13 @@ async function postStats(req, res, next) {
 
 async function getCommentary(req, res, next) {
   try {
-    const match_id = req.params.id;
+    const matchId = req.params.id;
 
-    const match = await Matches.findOne({ _id: match_id }).lean();
+    if (!req.session.user.isMatchStarted) {
+      return res.redirect(`/matches/${matchId}`)
+    }
+
+    const match = await Matches.findOne({ _id: matchId }).lean();
     const commentary = match.commentary;
 
     if (req.session.user.currentMatch) {
@@ -321,6 +346,10 @@ async function postCommentary(req, res, next) {
       throw new ServerError(400, error.message);
     }
 
+    if (!req.session.user.currentMatch) {
+      throw ServerError(403, 'User is not authorized to edit this match');
+    }
+
     const commentary = reqBody.commentary;
 
     const match = await Matches.updateOne(
@@ -339,9 +368,13 @@ async function postCommentary(req, res, next) {
 
 async function getHighlights(req, res, next) {
   try {
-    const match_id = req.params.id;
+    const matchId = req.params.id;
 
-    const match = await Matches.findOne({ _id: match_id }).lean();
+    if (!req.session.user.isMatchStarted) {
+      return res.redirect(`/matches/${matchId}`)
+    }
+
+    const match = await Matches.findOne({ _id: matchId }).lean();
 
     const highlights = match.highlights;
 
@@ -366,6 +399,10 @@ async function postHighlights(req, res, next) {
   try {
     const matchId = req.params.id;
     const reqBody = xss(req.body);
+
+    if (!req.session.user.currentMatch) {
+      throw ServerError(403, 'User is not authorized to edit this match');
+    }
 
     const { error } = validator.validatePostHighlights(reqBody);
     if (error) {
