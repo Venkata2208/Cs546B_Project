@@ -57,7 +57,7 @@ async function getUser(req, res, next) {
     //search for user in database
     const user1 = await Users.findOne({ _id: user.id }).lean();
 
-    return res.render("users/viewuser", { user: user1 });
+    return res.render("users/viewuser", user1);
   } catch (error) {
     if (error instanceof ServerError) {
       return next(error);
