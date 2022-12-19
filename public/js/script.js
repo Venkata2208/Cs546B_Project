@@ -45,7 +45,13 @@ async function signUpUI(event) {
       },
       body: data,
     });
-    response = await response.json();
+   
+    if(response.status!=200)
+    {
+      response = await response.json();
+      throw response.data;
+    }
+    
     window.location.href = "/";
   } catch (error) {
     console.log(error);
