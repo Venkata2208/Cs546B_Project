@@ -250,7 +250,7 @@ td {
  color: rgb(246, 249, 247); 
  background-color: rgba(12, 12, 12, 0);
 
-  padding: 20px 248px;
+  
 }
 .statsForm .table2
 {
@@ -262,8 +262,8 @@ td {
 }
 .statsForm .fields {
   text-align:left;
-  height: 30px;
-  width: 60%;
+  height: 10px;
+  width: 90%;
   
   
 }

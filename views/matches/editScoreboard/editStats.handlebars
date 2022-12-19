@@ -19,83 +19,104 @@
 
   <div style="color: rgb(246, 249, 247); background-color: rgba(2, 0, 0, 0);">*Add values to the desired field, atleast
     one value should be entered</div>
+  
   <form id="form" class="statsForm" onsubmit="editstats(event)">
-    <div><option id="matchId" hidden="true">{{id}}</option></div>
-    <label id="label">
-      <table class="table2">
-        <th id="team1_name" style="color: rgb(246, 249, 247); background-color: rgba(2, 0, 0, 0);">{{team1Name}}
-          <<<------------------------>>>
-        </th>
-
-        <th id="team2_name" style="color: rgb(246, 249, 247); background-color: rgba(2, 0, 0, 0);">{{team2Name}}</th>
-      </table>
-
+    
+    
       <table>
-        <div style="color: rgb(246, 249, 247); background-color: rgba(2, 0, 0, 0);" class="fields">Goals</div>
-        <input class="class1" name="input" type="number" min="1" id="edit_team1_goals" >
+        <tr>
+        <td>
+          <option id="matchId" hidden="true">{{id}}</option>
+        <label id="team1_name" style=" padding: 1px; color: rgb(246, 249, 247); background-color: rgba(2, 0, 0, 0);">{{team1Name}}----------------</label>
+
+        <label id="team2_name" style="color: rgb(246, 249, 247); background-color: rgba(2, 0, 0, 0);">{{team2Name}}</label>
+        </td>
+        </tr>
+        <tr>
+        <td><label style="color: rgb(246, 249, 247); background-color: rgba(2, 0, 0, 0);" class="fields">Goals</label>
+        <input class="class1" name="input" type="number" min="1" id="edit_team1_goals">
         <label class="fields" for="edit_team2_goals" hidden>team2 goals</label>
         <input class="class1" name="input" type="number" min="1" id="edit_team2_goals" >
-
-        
-        <div style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" class="fields">shots</div>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <label style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" class="fields">shots</label>
         <label class="fields" for="edit_team1_shots" hidden>team1 shots</label>
         <label class="fields" for="edit_team2_shots" hidden>team2 shots</label>
         <input class="class1" name="input" type="number" min="1" id="edit_team1_shots" >
         <input class="class1" name="input" type="number" min="1" id="edit_team2_shots" >
-
-        <div></div>
-        <div style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" class="fields">shots on target
-        </div>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <label style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" class="fields">shots-target
+        </label>
         <label class="fields" for="edit_team1_shotsontarget" hidden>team1 shots on target</label>
         <label class="fields" for="edit_team2_shotsontarget" hidden>team2 shots on target</label>
         <input class="class1" name="input" type="number" min="1" id="edit_team1_shotsontarget" >
         <input class="class1" name="input" type="number" min="1" id="edit_team2_shotsontarget" >
-
-        <div></div>
-        <div style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" class="fields">fouls</div>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <label style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" class="fields">fouls</label>
         <label class="fields" for="edit_team1_fouls" hidden>team1 fouls</label>
         <label class="fields" for="edit_team2_fouls" hidden>team2 fouls</label>
         <input class="class1" name="input" type="number" min="1" id="edit_team1_fouls" >
         <input class="class1" name="input" type="number" min="1" id="edit_team2_fouls" >
-
-        <div></div>
-        <div style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" class="fields">passes</div>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <label style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" class="fields">passes</label>
         <label class="fields" for="edit_team1_passes" hidden>team1 passes</label>
         <label class="fields" for="edit_team2_passes" hidden>team2 passes</label>
         <input class="class1" name="input" type="number" min="1" id="edit_team1_passes" >
         <input class="class1" name="input" type="number" min="1" id="edit_team2_passes" >
-
-        <div></div>
-        <div style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" class="fields">yellow cards</div>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <label style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" class="fields">yellow cards</label>
         <label class="fields" for="edit_team1_yellowcards" hidden>team1 yellow cards</label>
         <label class="fields" for="edit_team2_yellowcards" hidden>team2 yellow cards</label>
         <input class="class1" name="input" type="number" min="1" id="edit_team1_yellowcards" >
         <input class="class1" name="input" type="number" min="1" id="edit_team2_yellowcards" >
-
-        <div></div>
-        <div style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" class="fields">red cards</div>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <label style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" class="fields">red cards</label>
         <label class="fields" for="edit_team1_redcards" hidden>team1 red cards</label>
         <label class="fields" for="edit_team2_redcards" hidden>team2 red cards</label>
         <input class="class1" name="input" type="number" min="1" id="edit_team1_redcards" >
         <input class="class1" name="input" type="number" min="1" id="edit_team2_redcards" >
-
-        <div></div>
-        <div style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" class="fields">offsides</div>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <label style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" class="fields">offsides</label>
         <label class="fields" for="edit_team1_offsides" hidden>team1 offsides</label>
         <label class="fields" for="edit_team2_offsides" hidden>team2 offsides</label>
         <input class="class1" name="input" type="number" min="1" id="edit_team1_offsides" >
         <input class="class1" name="input" type="number" min="1" id="edit_team2_offsides" >
-
         
-        <div style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" class="fields">corners</div>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        
+        <label style="color: rgb(246, 249, 247); background-color: rgba(12, 12, 12, 0);" class="fields">corners</label>
         <label class="fields" for="edit_team1_corners" hidden>team1 corners</label>
         <label class="fields" for="edit_team2_corners" hidden>team2 corners</label>
         <input class="class1" name="input" type="number" min="1" id="edit_team1_corners" >
         <input class="class1" name="input" type="number" min="1" id="edit_team2_corners" >
+        </td>
+        </tr>
       </table>
       
       <button class="btn3" type="submit">Submit </button>
-    </label>
   </form>
 
   <div id="error" class="error"></div>
