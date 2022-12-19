@@ -2,11 +2,11 @@ db = db.getSiblingDB("cs546_final_project");
 db.dropDatabase();
 db.users.insertOne({
   _id: ObjectId("5f9f1b9b9b9b9b9b9b9b9b9b"),
-  firstName: "Jhonny",
-  lastName: "Sins",
-  name: "Jhonny Sins",
-  username: "youcantseeme",
-  password: "$2b$10$qLdIcUnY3vUu6sr4F4WKmux7RUWVRHSoWTryhJaSSVhl/SzzGbqey",
+  firstName: "Patrick",
+  lastName: "Hill",
+  name: "Patrick Hills",
+  username: "patrickhill",
+  password: "$2b$10$5lJPBdFwIWopdMNW10rzg.cs1U8uI1zqFqeQrviyjCu9TtmXHJ28m",
 });
 
 db.matches.insertOne({
@@ -16,17 +16,17 @@ db.matches.insertOne({
   startTime: 13434311,
   endTime: 13434311,
   duration: 90,
-  comments: [
+  commentary: [
     {
       time: "Sun Dec 18 2022 19:51:13 GMT-0500",
-      text: "Player 1 scored a goal!",
+      comment: "Player 1 scored a goal!",
     },
     {
       time: "Sun Dec 18 2022 19:51:13 GMT-0500",
-      text: "Player 2 have passed to player 1",
+      comment: "Player 2 have passed to player 1",
     },
   ],
-  highlights: "Highlight video url",
+  highlights: ["Highlight video url"],
   team1: {
     name: "team1",
     stats: {
