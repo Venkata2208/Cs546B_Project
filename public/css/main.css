@@ -275,6 +275,7 @@ td {
 
 .main-nav {
   margin-top: 5px;
+  list-style-type: none;
 }
 .logo a,
 .main-nav a {

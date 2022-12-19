@@ -3,19 +3,19 @@
 
   <ul class="main-nav">
    
-    <a class="fields">{{team1Name}}</a>
-        <div style=" width:auto"   class="count" value="0" id="team1_goals">{{team1Goals}}</div>
+    <li><a class="fields">{{team1Name}}</a></li>
+    <li>  <div style=" width:auto"   class="count" id="team1_goals">{{team1Goals}}</div></li>
         
-        <div class="count" value="0" id="team2_goals">{{team2Goals}}</div>
-        <a class="fields">{{team2Name}}</a>
-
+      <li><div style=" width:auto"   class="count" id="team2_goals">{{team2Goals}}</div></li>
+       <li><a class="fields">{{team2Name}}</a></li>
+  
   </ul>
 
   <ul class="main-nav">
-    <a href="/matches/{{id}}/players">Players</a>
-    <a href="/matches/{{id}}/stats">Stats</a>
-    <a href="/matches/{{id}}/commentary">Commentary</a>
-    <a href="/matches/{{id}}/highlights">Highlights</a>
+    <li><a href="/matches/{{id}}/players">Players</a></li>
+    <li><a href="/matches/{{id}}/stats">Stats</a></li>
+    <li><a href="/matches/{{id}}/commentary">Commentary</a></li>
+    <li><a href="/matches/{{id}}/highlights">Highlights</a></li>
   </ul>
 
 </main>
