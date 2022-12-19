@@ -1,4 +1,4 @@
-db = db.getSiblingDB("cs546_final_project");
+db = db.getSiblingDB("cs546b_group42");
 db.dropDatabase();
 db.users.insertOne({
   _id: ObjectId("5f9f1b9b9b9b9b9b9b9b9b9b"),
