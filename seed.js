@@ -18,19 +18,19 @@ db.matches.insertOne({
   duration: 90,
   comments: [
     {
-      time: 342308923,
+      time: "Sun Dec 18 2022 19:51:13 GMT-0500",
       text: "Player 1 scored a goal!",
     },
     {
-      time: 342308923,
+      time: "Sun Dec 18 2022 19:51:13 GMT-0500",
       text: "Player 2 have passed to player 1",
     },
   ],
   highlights: "Highlight video url",
   team1: {
     name: "team1",
-    goals: 2,
     stats: {
+      goals: 2,
       shots: 0,
       shotsontarget: 0,
       fouls: 0,
@@ -56,8 +56,8 @@ db.matches.insertOne({
   },
   team2: {
     name: "team2",
-    goals: 2,
     stats: {
+      goals: 2,
       shots: 0,
       shotsontarget: 0,
       fouls: 0,

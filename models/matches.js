@@ -56,7 +56,7 @@ const teamSchema = new mongoose.Schema(
 const commentSchema = new mongoose.Schema(
   {
     time: {
-      type: Number,
+      type: String,
       required: true,
     },
     comment: {
